@@ -11,3 +11,11 @@ function getData() {
       result.textContent = data
     })
 }
+
+const URL2 = './data/exampleUsers.json'
+
+fetch(URL2)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
