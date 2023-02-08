@@ -1,6 +1,6 @@
-import Button from "./components/Button"
+import Button from './components/Button'
 
-function App() {
+function App (): JSX.Element {
   return (
     <section className="buttons">
       <Button>Like 1</Button>
