@@ -1,8 +1,8 @@
-const App = () => {
+const App = (): JSX.Element => {
   return (
-    <section>
-      <p>Hello World</p>
-    </section>
+    <div className="bg-red-200">
+      <h1 className="text-4xl text-center">Hello, World!</h1>
+    </div>
   )
 }
 
