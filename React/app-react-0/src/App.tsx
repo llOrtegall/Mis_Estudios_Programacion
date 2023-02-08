@@ -1,11 +1,7 @@
-import Button from './components/Button'
-
-function App (): JSX.Element {
+const App = () => {
   return (
-    <section className="buttons">
-      <Button>Like 1</Button>
-      <Button>Like 2</Button>
-      <Button>Like 3</Button>
+    <section>
+      <p>Hello World</p>
     </section>
   )
 }
