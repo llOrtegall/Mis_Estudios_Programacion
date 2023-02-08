@@ -1,6 +1,12 @@
+import Button from "./components/Button"
+
 function App() {
   return (
-    <div>Hello</div>
+    <section className="buttons">
+      <Button>Like 1</Button>
+      <Button>Like 2</Button>
+      <Button>Like 3</Button>
+    </section>
   )
 }
 
