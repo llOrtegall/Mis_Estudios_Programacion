@@ -20,7 +20,3 @@ const App = (): JSX.Element => {
 }
 
 export default App
-
-// <Route path="/" element={<div>Home</div>} />
-// <Route path="/about" element={<div>About</div>} />
-// <Route path="/contact" element={<div>Contact</div>} />
