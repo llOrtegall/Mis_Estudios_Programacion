@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+i{
+    font-size: 36px;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    background-color: rgba(10, 104, 245, 0.2);
+    justify-content: space-around;
+}
+
+#cartshopp{
+    display: none;
+}
