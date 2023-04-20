@@ -1,19 +1,38 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-i{
+i {
     font-size: 36px;
 }
 
-header{
+.uil-android {
+    color: rgb(32, 209, 71);
+    text-shadow: 1px 1px 0 black;
+}
+
+.uil-shopping-cart {
+    color: rgb(211, 173, 7);
+    text-shadow: 1px 1px 0 black;
+}
+
+header {
     display: flex;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: auto;
     align-items: center;
-    background-color: rgba(10, 104, 245, 0.2);
+    background-color: rgba(73, 72, 72, 0.6);
     justify-content: space-around;
 }
 
-#cartshopp{
+header h2{
+    font-size: 30px;
+    color: rgb(224, 231, 220);
+    text-shadow: 1px 1px 1px black;
+}
+
+#cartshopp {
     display: none;
 }
