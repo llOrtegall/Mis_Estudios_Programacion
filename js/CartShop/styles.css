@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+figure:hover{
+    cursor: pointer;
+}
+
 i {
     font-size: 36px;
 }
@@ -27,7 +31,7 @@ header {
     justify-content: space-around;
 }
 
-header h2{
+header h2 {
     font-size: 30px;
     color: rgb(224, 231, 220);
     text-shadow: 1px 1px 1px black;
@@ -35,4 +39,7 @@ header h2{
 
 #cartshopp {
     display: none;
+    position: absolute;
+    top: 60px;
+    background-color: gray;
 }
