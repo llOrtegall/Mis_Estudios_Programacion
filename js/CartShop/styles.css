@@ -1,3 +1,9 @@
+:root{
+    --colorWhite: rgba(255, 255, 255, 0.918);
+    --colorBlack: rgb(51, 50, 50);
+    --colorBg01:rgba(149, 210, 214, 0.7);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,12 +18,12 @@ i {
 }
 
 .uil-android {
-    color: rgb(32, 209, 71);
-    text-shadow: 1px 1px 0 black;
+    color: rgb(100, 231, 129);
+    text-shadow: 1px 1px black;
 }
 
 .uil-shopping-cart {
-    color: rgb(211, 173, 7);
+    color: rgb(192, 77, 221);
     text-shadow: 1px 1px 0 black;
 }
 
@@ -27,14 +33,14 @@ header {
     padding-bottom: 5px;
     height: auto;
     align-items: center;
-    background-color: rgba(73, 72, 72, 0.6);
+    background-color: var(--colorBg01);
     justify-content: space-around;
 }
 
 header h2 {
     font-size: 30px;
-    color: rgb(224, 231, 220);
-    text-shadow: 1px 1px 1px black;
+    color: rgb(242, 243, 241);
+    text-shadow: 2px 1px rgb(18, 18, 19);
 }
 
 #cartshopp {
@@ -45,10 +51,35 @@ header h2 {
 }
 
 #hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     height: 40vh;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: aqua;
+    background:linear-gradient(rgb(21, 139, 218), rgb(101, 218, 226));
+}
+
+#hero h3{
+    font-size: 34px;
+}
+
+#hero p{
+    font-size: 30px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+#hero button{
+    margin-top: 1.2rem;
+    height: 50px;
+    width: 20vh;
+    border-radius: 20px;
+    border: none;
+    background-color: rgba(14, 79, 177, 0.9);
+    font-size: 1.4rem;
+    color: white;
+    font-weight: bold;
 }
