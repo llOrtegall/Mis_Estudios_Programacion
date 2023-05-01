@@ -86,7 +86,7 @@ function carritoHtml() {
     const { image, titulo, price, cantidad } = curso;
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td><img src="${image}" width="100"></td>
+      <td><img src="${image}" width="60"></td>
       <td><p>${titulo}</p></td>
       <td><p>${price}</p></td>
       <td><p>${cantidad}</p></td> 
