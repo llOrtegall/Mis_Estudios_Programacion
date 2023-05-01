@@ -87,9 +87,9 @@ function carritoHtml() {
     const row = document.createElement('tr');
     row.innerHTML = `
       <td><img src="${image}" width="60"></td>
-      <td><p>${titulo}</p></td>
-      <td><p>${price}</p></td>
-      <td><p>${cantidad}</p></td> 
+      <td class="texto"><p>${titulo}</p></td>
+      <td class="texto"><p>${price}</p></td>
+      <td class="texto"><p>${cantidad}</p></td> 
       <td>
         <a href="#" class="borrar-curso" data-id="${curso.id}"> x </a>
       </td>
