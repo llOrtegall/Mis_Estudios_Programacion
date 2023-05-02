@@ -53,20 +53,21 @@ header h2 {
   background-color: rgb(235, 234, 234);
 }
 
-table{
+table {
   width: 100%;
 }
-table th{
+
+table th {
   border-bottom: solid 2px black;
   padding: 8px;
 }
 
-table td{
+table td {
   padding: 10px;
   text-align: center;
 }
 
-.borrar-curso{
+.borrar-curso {
   font-size: 1.2rem;
   color: white;
   text-decoration: none;
@@ -75,7 +76,7 @@ table td{
   border-radius: 50%;
 }
 
-.vaciarCart{
+.vaciarCart {
   display: flex;
   margin: auto;
   justify-content: center;
