@@ -43,6 +43,10 @@ header h2 {
   text-shadow: 2px 1px rgb(18, 18, 19);
 }
 
+.showCart{
+  display: none;
+}
+
 #cartshopp {
   padding-top: 15px;
   position: absolute;

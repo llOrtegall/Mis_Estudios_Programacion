@@ -4,10 +4,23 @@ const listCursos = document.querySelector('#lista-cursos');
 const contenedorCarrito = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.querySelector('.vaciarCart');
 let articulosCarrito = [];
+const mostrarCarrito = document.querySelector('.uil-shopping-cart')
 
 loadEventListeners();
 
 function loadEventListeners() {
+  //*muestra o oculta el carrito
+  mostrarCarrito.addEventListener('click', ()=>{
+    
+    let carShow = document.querySelector('#cartshopp')
+    
+    if(carShow.classList.contains('showCart')){
+      carShow.classList.remove('showCart')
+    }else{
+      carShow.classList.add('showCart')
+    }
+  })
+
   //* Cuando se agrega el curso
   listCursos.addEventListener('click', agregarCurso)
 
