@@ -3,9 +3,9 @@ const strengthDiv = document.querySelector('#strength');
 const passwordInput = document.querySelector('#password');
 
 const strength = {
-    1: "weak",
-    2: "medium",
-    3: "strong",
+    1: "Weak",
+    2: "Medium",
+    3: "Strong",
 }
 
 const getIndicator = (password, value) => {
@@ -55,7 +55,7 @@ const handleChange = () => {
 
     if (strenghText) {
         strengthDiv.innerText = 
-        `${strenghText} password`;
+        `${strenghText} Password`;
 
         bars.classList.add(strenghText);
     }else{

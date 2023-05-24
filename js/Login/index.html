@@ -16,20 +16,23 @@
 
     <main>
         <section id="login">
-            <div>
+            <div class="content">
                 <i class="uil uil-user"></i>
                 <h1>Sign Up</h1>
                 <p>Enter your credentials</p>
             </div>
             <form class="formLogin">
-                <input type="text" placeholder="user email">
-                <input type="password" spellcheck="false" 
-                    id="password" placeholder="password"
-                    onkeyup="handleChange()" />
-                <div id="bars">
-                    <div></div>
+                <div class="user">
+                    <input type="text" placeholder="Username">
                 </div>
-                <div id="strength"></div>
+                <div class="DivPassword">
+                    <input type="password" spellcheck="false" id="password" placeholder="Password"
+                        onkeyup="handleChange()" />
+                    <div id="bars">
+                        <div></div>
+                    </div>
+                    <div id="strength"></div>
+                </div>
             </form>
         </section>
     </main>
