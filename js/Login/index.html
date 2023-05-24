@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./styles.css">
+
+    <!-- TODO: Uniicons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 </head>
+
 <body>
 
     <main>
         <section id="login">
+            <div>
+                <i class="uil uil-user"></i>
+                <h1>Sign Up</h1>
+                <p>Enter your credentials</p>
+            </div>
             <form>
-                <div>
-                    <label>UserName:</label>
-                    <input placeholder="example@example.com" ty>
+                <input type="text" placeholder="user email">
+                <input type="password" spellcheck="false" 
+                    id="password" placeholder="password"
+                    onkeyup="handleChange()" />
+                <div id="bars">
+                    <div></div>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" placeholder="*********">
-                </div>
-                
-                <div>
-                    <input type="submit" value=" Login Page">
-                </div>
+                <div id="strength"></div>
             </form>
         </section>
     </main>
 
     <script src="./index.js"></script>
 </body>
+
 </html>

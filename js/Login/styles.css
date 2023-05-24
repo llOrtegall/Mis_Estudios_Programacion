@@ -1,29 +1,29 @@
-*{
-    margin: 0;
-    padding: 0;
-    background-color: rgb(177, 172, 172);
-}
 
 
-
-input{
-    box-shadow: none;
-    border: none;
-}
-
-body{
-    display: grid;
-    width: 100%;
-    height: 100vh;
-}
-
-main{
-    margin: auto;
-}
-
-#login form{
-    height: 100%;
+#bars{
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+    height: 6px;
+    width: 360px;
+    margin: 8px 0;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#bars div{
+    width: 0;
+    height: inherit;
+    border-radius: inherit;
+    transition: 0.4s;
+}
+
+#bars.weak div{
+    background: #bc2b38; width: 33.33%;
+}
+#bars.medium div{
+    background: #d36f30; width: 66.66%;
+}
+#bars.strong div{
+    background: #1eb965; width: 100%;
 }
