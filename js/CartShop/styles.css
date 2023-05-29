@@ -1,7 +1,7 @@
 :root {
   --colorWhite: rgba(255, 255, 255, 0.918);
   --colorBlack: rgb(51, 50, 50);
-  --colorBg01: rgba(149, 210, 214, 0.7);
+  --colorBg01: rgba(41, 215, 228, 0.822);
 }
 
 * {
@@ -18,13 +18,13 @@ i {
 }
 
 .uil-android {
-  color: rgb(100, 231, 129);
-  text-shadow: 1px 1px black;
+  color: rgb(23, 209, 48);
+  text-shadow: 1px 1px rgb(0, 0, 0);
 }
 
 .uil-shopping-cart {
-  color: rgb(192, 77, 221);
-  text-shadow: 1px 1px 0 black;
+  color: rgb(1, 200, 250);
+  text-shadow: 2px 2px 2px rgb(70, 69, 69);
 }
 
 header {
@@ -33,14 +33,13 @@ header {
   padding-bottom: 5px;
   height: auto;
   align-items: center;
-  background-color: var(--colorBg01);
   justify-content: space-around;
 }
 
 header h2 {
   font-size: 30px;
-  color: rgb(242, 243, 241);
-  text-shadow: 2px 1px rgb(18, 18, 19);
+  color: rgb(0, 0, 0);
+  text-shadow: 2px 1px rgb(248, 246, 248);
 }
 
 .showCart{
@@ -103,7 +102,7 @@ table td {
   flex-direction: column;
   height: 40vh;
   width: 100%;
-  background: linear-gradient(rgb(21, 139, 218), rgb(101, 218, 226));
+  background: linear-gradient(rgb(187, 232, 238), rgb(115, 165, 241));
 }
 
 #hero h3 {
@@ -139,7 +138,7 @@ button:hover {
 }
 
 .card {
-  border: 2px solid rgb(78, 199, 207);
+  border: 2px solid rgb(54, 54, 54);
   border-radius: 20px;
   flex-grow: 1;
   flex-shrink: 0;
@@ -166,7 +165,7 @@ button:hover {
 .info-card button {
   border: none;
   border-radius: 10px;
-  background-color: aqua;
+  background-color: rgb(66, 240, 133);
   width: 180px;
   height: 40px;
 }

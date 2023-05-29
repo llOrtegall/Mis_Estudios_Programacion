@@ -4,6 +4,13 @@
     background-color: rgb(177, 172, 172);
 }
 
+
+
+input{
+    box-shadow: none;
+    border: none;
+}
+
 body{
     display: grid;
     width: 100%;
