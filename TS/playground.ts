@@ -41,8 +41,31 @@ const board: string[][] = [
 
 const board2: Array<string> = [];
 
+//* tupples
 type CellValue = 'X' | 'O' | '';
 
-type RGB = [number, number, number];
+type RGB = readonly [number, number, number]; //* para evitar errores agregamos readonly
 const black: RGB = [0, 0, 0];
 const white: RGB = [255, 255, 255];
+
+//* Enums
+
+// const ERROR_TYPES = {
+//   NOT_FOUND: 'Not Found',
+//   NOT_AUTO_EXIST: 'No se encuentra el recurso',
+// }
+// function mostrarMensaje(tipoDeError) {
+//   if (tipoDeError === NOT_FOUND) {
+//     console.log('No se encuentra el recurso')
+//   } else if (tipoDeError === NOT_AUTO_EXIST) {
+//     console.log('Error: ')
+//   } else if (tipoDeError === 'noautorizado') {
+//     console.log('No se encuentra')
+//   }
+// }
+
+enum ERROR_TYPES {
+  NOT_FOUND,
+  UNAVAILABLE,
+  FORBIDDEN,
+}
