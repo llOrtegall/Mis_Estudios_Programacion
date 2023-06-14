@@ -64,8 +64,19 @@ const white: RGB = [255, 255, 255];
 //   }
 // }
 
-enum ERROR_TYPES {
-  NOT_FOUND,
-  UNAVAILABLE,
-  FORBIDDEN,
+//* es buena practica estos enums hacerlos const sin embargo depende de la funcionalidad
+const enum ERROR_TYPES {
+  NOT_FOUND = 'not_found',
+  UNAVAILABLE = 'unatorized',
+  FORBIDDEN = 'forbidden',
+}
+
+function mostrarMensaje(tipoError: ERROR_TYPES) {
+  if (tipoError === ERROR_TYPES.NOT_FOUND) {
+    console.log('1')
+  } else if (tipoError === ERROR_TYPES.UNAVAILABLE) {
+    console.log('2')
+  } else if (tipoError === ERROR_TYPES.FORBIDDEN) {
+    console.log('3')
+  }
 }
