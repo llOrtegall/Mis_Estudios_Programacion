@@ -41,3 +41,8 @@ const board: string[][] = [
 
 const board2: Array<string> = [];
 
+type CellValue = 'X' | 'O' | '';
+
+type RGB = [number, number, number];
+const black: RGB = [0, 0, 0];
+const white: RGB = [255, 255, 255];
