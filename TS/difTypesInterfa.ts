@@ -12,5 +12,15 @@ if (canvas != null && canvas instanceof HTMLCanvasElement) {
     const ctx = canvas.getContext('2d');
 }
 
-// feching de datos en Typescript
 
+type Heroe = {
+    id: string;
+    name: string;
+    age: number;
+}
+
+const hero: Heroe = {
+    id: '1',
+    name: 'John',
+    age: 36
+}
