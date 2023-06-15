@@ -12,6 +12,6 @@ const persona2 = {
 
 //*Type Script Usa inferencia es capaz de mostrarte como es el object en este ejemplo
 persona2.age = 12;
-persona2.name = 'Ivan'
+persona2.name = 'Hola Ivan';
 
 // ? Curiosidad VS Code Esta desarrollado con TypeScript y TypeScript con TypeScript

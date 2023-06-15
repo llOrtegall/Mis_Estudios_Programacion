@@ -13,3 +13,15 @@ function suma(a: number, b: number) {
 suma(3, 3)
 
 console.log(suma)
+
+const number = 1;
+let n: number = 2;
+
+//* En Ts debemos intentar escribir el type de variables
+
+let b = 'hola'
+let aaaa = null;
+let cc = undefined;
+
+let texto = 'Hola';
+texto.charAt
