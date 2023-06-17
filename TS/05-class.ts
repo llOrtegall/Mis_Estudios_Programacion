@@ -26,3 +26,10 @@ function createHeroo(hero: Heroo): Heroo {
 const thorr = createHeroo({ name: 'Thorr', age: 234 })
 console.log(thorr.isActive)
 //*thorr.id?.toString() // evita ejcutarlo con el optional chaning
+
+
+// Templates union types 
+type hexadecimalesColor = `#${string}`
+
+// TODO: esto dara error const color: hexadecimalesColor = '0033ff' // hexadecimales
+const color2: hexadecimalesColor = '#0033ff' // hexadecimales
