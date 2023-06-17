@@ -1,10 +1,11 @@
 // optional properties
 
+type HeroId = `${string}-${string}-${string}-${string}-${string}`
 type Heroo = {
-    readonly id?: number
-    name: string;
+    readonly id?: HeroId
+    name: string
     age: number
-    isActive?: boolean;
+    isActive?: boolean
 }
 
 let hero: Heroo = {
@@ -14,7 +15,12 @@ let hero: Heroo = {
 
 function createHeroo(hero: Heroo): Heroo {
     const { name, age } = hero
-    return { name, age, isActive: true }
+    return {
+        id: crypto.randomUUID(), // nativo de la plataforma web
+        name,
+        age,
+        isActive: true
+    }
 }
 
 const thorr = createHeroo({ name: 'Thorr', age: 234 })
