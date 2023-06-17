@@ -14,8 +14,22 @@ let hero = {
     age: 1500
 };
 
-function createHero(name: string, age: number) {
-    return { name, age };
+
+//TODO: los types se crean con pascal Case
+type Hero = {
+    name: string,
+    age: number
 }
 
-const thor = createHero('Hulk', 2312);
+let hero2: Hero = {
+    name: 'Thor',
+    age: 1500,
+
+};
+
+function createHero(hero: Hero): Hero {
+    const { name, age } = hero;
+    return { name, age, };
+}
+
+const Thor = createHero({ name: 'Thor', age: 22 });
