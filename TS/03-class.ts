@@ -46,3 +46,17 @@ const sayHi = (name: string) => {
 }
 
 sayHiProgram(sayHi)
+
+// TODO: Typas las arrow funtions
+const sumar2 = (a: number, b: number): number => {
+    return a + b
+}
+
+const restar: (a: number, b: number) => number = (a, b) => {
+    return a - b
+}
+
+//? Never
+function throwError(message: string): never {
+    throw new Error(message);
+}
