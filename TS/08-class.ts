@@ -18,3 +18,10 @@ const gameBoard: GameBoard = [
     ['X', 'O', 'X'],
     ['X', 'O', 'X']
 ]
+
+// type State = [string, (newName: string) => void]
+
+// const [hero, setHero]: State = useState('thor')
+
+type RGB = [number, number, number]
+const rgb: RGB = [255, 255, 0,] // 0 - 255
