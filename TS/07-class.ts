@@ -33,15 +33,28 @@
 // thor5.powerScale = "multiversal"
 
 // Types Index
-type HeroProperties = {
-    isActive: boolean,
-    adress: {
-        planet: string,
-        city: string
-    }
+// type HeroProperties = {
+//     isActive: boolean,
+//     adress: {
+//         planet: string,
+//         city: string
+//     }
+// }
+
+// const addresHero: HeroProperties['adress'] = {
+//     planet: 'Earth',
+//     city: 'Madrid'
+// }
+
+//Type from value
+const address = {
+    planet: 'Earth',
+    city: 'Madrid'
 }
 
-const addresHero: HeroProperties['adress'] = {
-    planet: 'Earth',
+type Address = typeof address
+
+const AddresTwich: Address = {
+    planet: 'Mars',
     city: 'Madrid'
 }
