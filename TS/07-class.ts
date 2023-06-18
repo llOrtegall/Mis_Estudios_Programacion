@@ -47,14 +47,24 @@
 // }
 
 //Type from value
-const address = {
-    planet: 'Earth',
-    city: 'Madrid'
+// const address = {
+//     planet: 'Earth',
+//     city: 'Madrid'
+// }
+
+// type Address = typeof address
+
+// const AddresTwich: Address = {
+//     planet: 'Mars',
+//     city: 'Madrid'
+// }
+
+// type of funtion return
+function createAddress() {
+    return {
+        planet: 'Tierra',
+        city: 'Barcelona'
+    }
 }
 
-type Address = typeof address
-
-const AddresTwich: Address = {
-    planet: 'Mars',
-    city: 'Madrid'
-}
+type Address = ReturnType<typeof createAddress>
