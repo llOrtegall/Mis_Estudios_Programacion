@@ -27,3 +27,7 @@ while (cuentaAtras > 0) {
     console.log(cuentaAtras + 'segundos');
 }
 console.log('Despegue');
+
+for (let number = 1; number <= 10; number++) {
+    console.log(number)
+}
