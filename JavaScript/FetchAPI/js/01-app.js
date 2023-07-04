@@ -11,4 +11,3 @@ function obtenerDatos() {
       console.log(repuesta.status);
     })
 }
-
