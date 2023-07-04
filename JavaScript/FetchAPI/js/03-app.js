@@ -1,3 +1,5 @@
+// document.addEventListener('DOMContentLoaded', obtenerDatos);
+
 const loadJsonArrayBtn = document.querySelector('#cargarJSONArray');
 loadJsonArrayBtn.addEventListener('click', obtenerDatos);
 
