@@ -1,16 +1,33 @@
-const button = document.querySelector('button');
+//* PARA UN SOLO BOTTON SE HARÍA
 
-button.addEventListener('click', () => {
-  // recuperar el id
-  const id = button.getAttribute('data-id');
+// const button = document.querySelector('button');
 
-  if (button.classList.contains('liked')) {
-    button.classList.remove('liked')
-    button.innerText = 'Me gusta'
-  } else {
-    button.classList.add('liked')
-    button.innerText = 'Quitar Me Gusta'
-  }
+// button.addEventListener('click', () => {
+//   // recuperar el id
+//   const id = button.getAttribute('data-id');
 
+//   if (button.classList.contains('liked')) {
+//     button.classList.remove('liked')
+//     button.innerText = 'Me gusta'
+//   } else {
+//     button.classList.add('liked')
+//     button.innerText = 'Quitar Me Gusta'
+//   }
+// })
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    // recuperar el id
+    const id = button.getAttribute('data-id');
+
+    if (button.classList.contains('liked')) {
+      button.classList.remove('liked')
+      button.innerText = 'Me gusta'
+    } else {
+      button.classList.add('liked')
+      button.innerText = 'Quitar Me Gusta'
+    }
+  })
 })
-
