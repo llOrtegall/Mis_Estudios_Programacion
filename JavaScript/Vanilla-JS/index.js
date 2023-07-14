@@ -1,5 +1,9 @@
 const button = document.querySelector('button');
 
-button.addEventListener('click', function () {
-  alert('hola');
+button.addEventListener('click', () => {
+  // recuperar el id
+  const id = button.getAttribute('data-id');
+
+  //
 })
+
