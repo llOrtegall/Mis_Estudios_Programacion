@@ -13,6 +13,14 @@ const button2 = h('button', { "data-id": 789 }, 'Me Gusta 3')
 
 const div = React.createElement(React.Fragment, null, [button, button1, button2])
 
+/* JSX
+ < React.Fragment >
+    <button data-id="123">Button 1</button>
+    <button data-id="456">Button 2</button>
+    <button data-id="789">Button 3</button>
+  </React.Fragment >
+*/
+
 root.render(div /* button1, button2 */)
 
 /* const suma = (a, b) => 2 + 2
