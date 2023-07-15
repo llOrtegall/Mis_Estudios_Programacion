@@ -5,11 +5,11 @@ const appDomElement = document.getElementById('app');
 
 const root = ReactDOM.createRoot(appDomElement);
 
+const h = React.createElement
 
-
-const button = React.createElement('button', { "data-id": 123 }, 'Me Gusta 1')
-const button1 = React.createElement('button', { "data-id": 456 }, 'Me Gusta 2')
-const button2 = React.createElement('button', { "data-id": 789 }, 'Me Gusta 3')
+const button = h('button', { "data-id": 123 }, 'Me Gusta 1')
+const button1 = h('button', { "data-id": 456 }, 'Me Gusta 2')
+const button2 = h('button', { "data-id": 789 }, 'Me Gusta 3')
 
 const div = React.createElement(React.Fragment, null, [button, button1, button2])
 
