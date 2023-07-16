@@ -1,4 +1,4 @@
-export const TwitterFollowCard = ({ formatUsername, userName, name, isFollowing }) => {
+export const TwitterFollowCard = ({ userName, name, isFollowing }) => {
 
   //console.log(isFollowing)
 
@@ -11,7 +11,7 @@ export const TwitterFollowCard = ({ formatUsername, userName, name, isFollowing 
           alt="El avatar" />
         <div>
           <strong>{name}</strong>
-          <span>{formatUsername(userName)}</span>
+          <span>@{userName}</span>
         </div>
       </header>
       <aside>
