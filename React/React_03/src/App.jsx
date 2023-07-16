@@ -1,23 +1,14 @@
 import './App.css';
+import { TwitterFollowCard } from './TwitterFollowCard';
 
 export const App = () => {
+  const formatUsername = (username) => `@${username}`
   return (
-    <article className='md-twi'>
-      <header className='md-twi-header'>
-        <img
-          className='md-twi-img'
-          src="https://i.pinimg.com/564x/1a/23/63/1a23636783f15649d1d55a4e71bf064a--dragon-age-inquisition-medieval-fantasy.jpg"
-          alt="El avatar" />
-        <div>
-          <strong>Ivan Ortega</strong>
-          <span>@llOrTeGall</span>
-        </div>
-      </header>
-      <aside>
-        <button>
-          Seguir
-        </button>
-      </aside>
-    </article>
+    <section className='App'>
+      <TwitterFollowCard formatUsername={formatUsername} isFollowing={true} userName="midudev" name="Miguel Angel Duran" />
+      <TwitterFollowCard formatUsername={formatUsername} isFollowing={false} userName="pheralb" name="Pablo Hernandez" />
+      <TwitterFollowCard formatUsername={formatUsername} isFollowing userName="elonmusk" name="Elonk Musk" />
+      <TwitterFollowCard formatUsername={formatUsername} isFollowing userName="llortegall" name="Ivan Ortega" />
+    </section>
   )
 }
