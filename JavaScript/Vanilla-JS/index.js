@@ -3,7 +3,7 @@
 // const button = document.querySelector('button');
 
 // button.addEventListener('click', () => {
-//   // recuperar el id
+//   //? recuperar el id
 //   const id = button.getAttribute('data-id');
 
 //   if (button.classList.contains('liked')) {
