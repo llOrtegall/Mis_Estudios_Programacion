@@ -3,6 +3,7 @@ import React from "https://esm.sh/react@18.2.0";
 
 const appDomElement = document.getElementById('app');
 
+// * En React Generamos un arbol de elementos.
 const root = ReactDOM.createRoot(appDomElement);
 
 const h = React.createElement
