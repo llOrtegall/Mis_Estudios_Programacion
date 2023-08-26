@@ -60,3 +60,9 @@ let miNumero2 = 1;
 
 let miBoolean1 = new Boolean(false);
 let miBoolean2 = false;
+
+let miArray1 = new Array();
+let miArray2 = [];
+
+let miFuncion1 = new Function();
+let miFuncion2 = function(){};
