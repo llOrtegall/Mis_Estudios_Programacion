@@ -1,9 +1,7 @@
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link, useParams, Outlet } from "react-router-dom";
 
 // TODO: Esto es un componente y Devuelven Elementos
 const Home = () => <h1>Home</h1>
-
-const Tacos = () => <h1>Tacos</h1>
 
 const SearchPage = () => {
   const tacos = ['Cochinita', 'Chile', 'Quesadilla', 'Carnita']
@@ -21,6 +19,23 @@ const SearchPage = () => {
   )
 }
 
+const Tacos = () => {
+  const { tacoName } = useParams()
+  return (
+    <div>
+      <h1>{tacoName}</h1>
+      <Link to='details' >Ir A los Detalles</Link>
+      <Outlet />
+    </div>
+  )
+}
+
+const TacoDetails = () => {
+  const { tacoName } = useParams()
+  return (
+    <h1>Taco Details del {tacoName}</h1>
+  )
+}
 export function App() {
   return (
     <>
@@ -40,7 +55,10 @@ export function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/search' element={<SearchPage />} />
-        <Route path="tacos/:nombre-del-taco" element={<Tacos />} />
+        <Route path="tacos/:tacoName" element={<Tacos />} >
+          <Route path='details' element={<TacoDetails />} />
+        </Route>
+        <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </>
   )
