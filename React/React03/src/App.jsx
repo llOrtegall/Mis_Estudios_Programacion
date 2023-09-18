@@ -1,4 +1,4 @@
-import { Route, Routes, Link, useParams, Outlet, NavLink } from "react-router-dom";
+import { Route, Routes, Link, useParams, Outlet, NavLink as NavLinkReactRouter } from "react-router-dom";
 
 // TODO: Esto es un componente y Devuelven Elementos
 const Home = () => <h1>Home</h1>
@@ -30,6 +30,21 @@ const Tacos = () => {
   )
 }
 
+// eslint-disable-next-line react/prop-types
+const NavLink = ({ to, children, ...props }) => {
+  return (
+    <NavLinkReactRouter
+      {...props}
+      className={({ isActive }) => {
+        return isActive ? 'is-active' : undefined
+      }}
+      to={to}>
+      {children}
+    </NavLinkReactRouter >
+
+  )
+}
+
 const TacoDetails = () => {
   const { tacoName } = useParams()
   return (
@@ -44,9 +59,7 @@ export function App() {
         <nav>
           <ul className="flex px-4">
             <li className="mx-6 hover:text-yellow-200">
-              <NavLink className={({ isActive }) => {
-                return isActive ? 'is-active' : undefined
-              }} to="/search">Search</NavLink>
+              <NavLink to="/search">Search</NavLink>
             </li>
             <li className="mx-6 hover:text-yellow-200">
               <NavLink className={({ isActive }) => {
