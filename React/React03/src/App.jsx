@@ -1,4 +1,4 @@
-import { Route, Routes, Link, useParams, Outlet } from "react-router-dom";
+import { Route, Routes, Link, useParams, Outlet, NavLink } from "react-router-dom";
 
 // TODO: Esto es un componente y Devuelven Elementos
 const Home = () => <h1>Home</h1>
@@ -6,7 +6,7 @@ const Home = () => <h1>Home</h1>
 const SearchPage = () => {
   const tacos = ['Cochinita', 'Chile', 'Quesadilla', 'Carnita']
   return (
-    <div className="w-screen h-screen text-center">
+    <div className="w-auto h-auto text-center">
       <h1>Searh Page</h1>
       <ul>
         {tacos.map(taco => (
@@ -43,11 +43,15 @@ export function App() {
         <h1 className="font-bold text-purple-600">Company Name</h1>
         <nav>
           <ul className="flex px-4">
-            <li className="mx-6 font-semibold hover:text-yellow-200">
-              <Link to="/search">Search</Link>
+            <li className="mx-6 hover:text-yellow-200">
+              <NavLink className={({ isActive }) => {
+                return isActive ? 'is-active' : undefined
+              }} to="/search">Search</NavLink>
             </li>
-            <li className="mx-6 font-semibold hover:text-yellow-200">
-              <Link to="/">Home</Link>
+            <li className="mx-6 hover:text-yellow-200">
+              <NavLink className={({ isActive }) => {
+                return isActive ? 'is-active' : undefined
+              }} to="/">Home</NavLink>
             </li>
           </ul>
         </nav>
