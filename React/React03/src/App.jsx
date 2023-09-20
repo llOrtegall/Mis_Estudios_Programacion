@@ -1,5 +1,6 @@
-import { Route, Routes, Link, useParams, Outlet } from "react-router-dom";
+import { Route, Routes, Link, useParams, Outlet, Navigate, useNavigate } from "react-router-dom";
 import { NavLink } from "./NavLink.jsx";
+import { useAuth } from "./useAuth.jsx";
 // TODO: Esto es un componente y Devuelven Elementos
 const Home = () => <h1>Home</h1>
 
@@ -19,6 +20,27 @@ const SearchPage = () => {
   )
 }
 
+// eslint-disable-next-line react/prop-types
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth()
+  if (!isAuthenticated) {
+    return <Navigate to='/login' />
+  }
+
+  return children
+}
+
+const Login = () => {
+  const { login } = useAuth()
+  const navigate = useNavigate()
+  const handleClick = () => {
+    login()
+    navigate('/search')
+  }
+  return (
+    <button onClick={handleClick}>login</button>
+  )
+}
 const Tacos = () => {
   const { tacoName } = useParams()
   return (
@@ -29,6 +51,7 @@ const Tacos = () => {
     </div>
   )
 }
+
 
 
 const TacoDetails = () => {
@@ -55,10 +78,16 @@ export function App() {
       </header>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/search' element={<SearchPage />} />
+        <Route path='/search'
+          element={
+            <ProtectedRoute>
+              <SearchPage />
+            </ProtectedRoute>
+          } />
         <Route path="tacos/:tacoName" element={<Tacos />} >
           <Route path='details' element={<TacoDetails />} />
         </Route>
+        <Route path='/login' element={<Login />} />
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </>
