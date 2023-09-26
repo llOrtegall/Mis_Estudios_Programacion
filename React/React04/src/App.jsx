@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage.jsx";
 import { UsersPage } from "./pages/UsersPage.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage.jsx";
 import { NavBar } from "./components/NavBar.jsx";
+import { UserPage } from "./pages/userPage.jsx";
 
 export function App() {
 
@@ -16,6 +17,7 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/users/:id" element={<UserPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
