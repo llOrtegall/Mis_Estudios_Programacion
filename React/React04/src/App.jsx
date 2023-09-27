@@ -17,7 +17,7 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/users" element={<UsersPage />} />
-        <Route path="/users/:id" element={<UserPage />} />
+        <Route path="/users/:userId" element={<UserPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
