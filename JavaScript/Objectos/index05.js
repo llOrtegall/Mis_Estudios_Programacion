@@ -12,7 +12,6 @@ const Persona = {
       ciudad: 'Yumbo'
     }
   }
-
 }
 
 const { Nombre, Informacion: { peso, altura } } = Persona
@@ -21,4 +20,3 @@ console.log(Nombre);
 console.log(peso);
 console.log(altura);
 console.log(Origen);
-
