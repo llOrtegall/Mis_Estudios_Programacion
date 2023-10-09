@@ -9,7 +9,19 @@ export function App () {
   useEffect(() => {
     fetch(CAT_RAMDON_FACT)
       .then(res => res.json())
-      .then(data => setFact(data.fact))
+      .then(data => {
+        const { fact } = data
+        setFact(fact)
+
+        const theerfirtsWords = fact.split(' ', 3).join()
+        console.log(theerfirtsWords)
+
+        fetch(`https://cataas.com/cat/says/${theerfirtsWords}?size=50&color=red&json=true`)
+          .then(res => res.json())
+          .then(response => {
+            console.log(response)
+          })
+      })
   }, [])
 
   return (
