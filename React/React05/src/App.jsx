@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
 const CAT_RAMDON_FACT = 'https://catfact.ninja/fact'
-// const CAT_ENDPOINT = `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`
 
 export function App () {
   const [fact, setFact] = useState()
+  const [catImage, setCatImage] = useState()
 
   useEffect(() => {
     fetch(CAT_RAMDON_FACT)
@@ -13,13 +13,13 @@ export function App () {
         const { fact } = data
         setFact(fact)
 
-        const theerfirtsWords = fact.split(' ', 3).join()
-        console.log(theerfirtsWords)
+        const threeFirstWords = fact.split(' ', 3).join()
 
-        fetch(`https://cataas.com/cat/says/${theerfirtsWords}?size=50&color=red&json=true`)
-          .then(res => res.json())
+        fetch(`https://cataas.com/cat/says/${threeFirstWords}?fontSize=20&fontColor=red`)
+          .then(response => response)
           .then(response => {
-            console.log(response)
+            const { url } = response
+            setCatImage(url)
           })
       })
   }, [])
@@ -27,6 +27,7 @@ export function App () {
   return (
     <main>
       {fact && <p>{fact}</p>}
+      {catImage && <img src={catImage} alt={`image cat says words ${fact}`} />}
     </main>
   )
 }
