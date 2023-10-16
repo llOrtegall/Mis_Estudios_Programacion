@@ -1,23 +1,16 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 
-const CAT_RAMDON_FACT = 'https://catfact.ninja/fact'
+import './App.css'
+import { getRamdonFact } from './services/facts'
 
 export function App () {
   const [fact, setFact] = useState()
   const [catImage, setCatImage] = useState()
 
-  const getRamdonFact = () => {
-    fetch(CAT_RAMDON_FACT)
-      .then(res => res.json())
-      .then(data => {
-        const { fact } = data
-        setFact(fact)
-      })
-  }
-
   // TODO: Aquí Tenemos Un Effect
-  useEffect(getRamdonFact, [])
+  useEffect(() => {
+    getRamdonFact(setFact)
+  }, [])
 
   // TODO: Para Recuperar la imagen
   useEffect(() => {
@@ -34,7 +27,7 @@ export function App () {
   }, [fact])
 
   const handleClick = () => {
-    getRamdonFact()
+    getRamdonFact(setFact)
   }
 
   return (
