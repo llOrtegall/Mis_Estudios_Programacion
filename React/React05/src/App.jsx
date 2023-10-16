@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './App.css'
 
 const CAT_RAMDON_FACT = 'https://catfact.ninja/fact'
 
@@ -26,6 +27,7 @@ export function App () {
 
   return (
     <main>
+      <h2>App De Gatitos</h2>
       {fact && <p>{fact}</p>}
       {catImage && <img src={catImage} alt={`image cat says words ${fact}`} />}
     </main>
