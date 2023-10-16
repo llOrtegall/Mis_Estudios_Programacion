@@ -28,8 +28,10 @@ export function App () {
   return (
     <main>
       <h2>App De Gatitos</h2>
-      {fact && <p>{fact}</p>}
-      {catImage && <img src={catImage} alt={`image cat says words ${fact}`} />}
+      <section>
+        {fact && <p>{fact}</p>}
+        {catImage && <img src={catImage} alt={`image cat says words ${fact}`} />}
+      </section>
     </main>
   )
 }
