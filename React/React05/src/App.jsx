@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-
+import { getFactWhitWords, getRamdonFact } from './services/facts'
 import './App.css'
-import { getRamdonFact } from './services/facts'
 
 export function App () {
   const [fact, setFact] = useState()
@@ -9,21 +8,14 @@ export function App () {
 
   // TODO: Aquí Tenemos Un Effect
   useEffect(() => {
-    getRamdonFact().then(setFact)
+    getRamdonFact().then(newFact => setFact(newFact))
   }, [])
 
   // TODO: Para Recuperar la imagen
   useEffect(() => {
     if (!fact) return
-
     const threeFirstWords = fact.split(' ', 3).join()
-
-    fetch(`https://cataas.com/cat/says/${threeFirstWords}?fontSize=20&fontColor=red`)
-      .then(response => response)
-      .then(response => {
-        const { url } = response
-        setCatImage(url)
-      })
+    getFactWhitWords({ threeFirstWords }).then(newImage => setCatImage(newImage))
   }, [fact])
 
   const handleClick = async () => {
