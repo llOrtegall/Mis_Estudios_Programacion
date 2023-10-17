@@ -9,7 +9,7 @@ export function App () {
 
   // TODO: Aquí Tenemos Un Effect
   useEffect(() => {
-    getRamdonFact(setFact)
+    getRamdonFact().then(setFact)
   }, [])
 
   // TODO: Para Recuperar la imagen
@@ -26,8 +26,9 @@ export function App () {
       })
   }, [fact])
 
-  const handleClick = () => {
-    getRamdonFact(setFact)
+  const handleClick = async () => {
+    const newFact = await getRamdonFact()
+    setFact(newFact)
   }
 
   return (
