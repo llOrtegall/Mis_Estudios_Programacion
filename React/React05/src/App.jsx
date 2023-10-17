@@ -2,14 +2,8 @@ import { useEffect, useState } from 'react'
 import { getFactWhitWords, getRamdonFact } from './services/facts'
 import './App.css'
 
-export function App () {
-  const [fact, setFact] = useState()
+function useCatImage ({ fact }) {
   const [catImage, setCatImage] = useState()
-
-  // TODO: Aquí Tenemos Un Effect
-  useEffect(() => {
-    getRamdonFact().then(newFact => setFact(newFact))
-  }, [])
 
   // TODO: Para Recuperar la imagen
   useEffect(() => {
@@ -17,6 +11,18 @@ export function App () {
     const threeFirstWords = fact.split(' ', 3).join()
     getFactWhitWords({ threeFirstWords }).then(newImage => setCatImage(newImage))
   }, [fact])
+
+  return { catImage }
+}
+
+export function App () {
+  const [fact, setFact] = useState()
+  const { catImage } = useCatImage({ fact })
+
+  // TODO: Aquí Tenemos Un Effect
+  useEffect(() => {
+    getRamdonFact().then(newFact => setFact(newFact))
+  }, [])
 
   const handleClick = async () => {
     const newFact = await getRamdonFact()
