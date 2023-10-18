@@ -1,19 +1,7 @@
 import { useEffect, useState } from 'react'
-import { getFactWhitWords, getRamdonFact } from './services/facts'
+import { getRamdonFact } from './services/facts'
+import { useCatImage } from './hooks/useCatImage'
 import './App.css'
-
-function useCatImage ({ fact }) {
-  const [catImage, setCatImage] = useState()
-
-  // TODO: Para Recuperar la imagen
-  useEffect(() => {
-    if (!fact) return
-    const threeFirstWords = fact.split(' ', 3).join()
-    getFactWhitWords({ threeFirstWords }).then(newImage => setCatImage(newImage))
-  }, [fact])
-
-  return { catImage }
-}
 
 export function App () {
   const [fact, setFact] = useState()
