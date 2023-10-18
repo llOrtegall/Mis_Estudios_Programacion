@@ -1,20 +1,13 @@
-import { useEffect, useState } from 'react'
-import { getRamdonFact } from './services/facts'
 import { useCatImage } from './hooks/useCatImage'
+import { useCatFact } from './hooks/useCatFact'
 import './App.css'
 
 export function App () {
-  const [fact, setFact] = useState()
+  const { fact, refreshFact } = useCatFact()
   const { catImage } = useCatImage({ fact })
 
-  // TODO: Aquí Tenemos Un Effect
-  useEffect(() => {
-    getRamdonFact().then(newFact => setFact(newFact))
-  }, [])
-
   const handleClick = async () => {
-    const newFact = await getRamdonFact()
-    setFact(newFact)
+    refreshFact()
   }
 
   return (
