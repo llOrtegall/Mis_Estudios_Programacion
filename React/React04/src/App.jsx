@@ -20,7 +20,10 @@ export function App() {
         <Route path="/users" element={<UsersPage />} />
         <Route path="/usuarios" element={<Navigate to="/users" />} />
         <Route path="/users/:userId" element={<UserPage />} />
-        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/dashboard/*" element={<Dashboard />} >
+          <Route path="welcome" element={<h1>Welcome</h1>} />
+          <Route path="goodbye" element={<h1>goodbye</h1>} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
