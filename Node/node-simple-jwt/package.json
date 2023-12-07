@@ -5,7 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/index.js",
+    "start" : "node ./src/index.js"
   },
   "keywords": [],
   "author": "Ivan Ortega Garzon",
@@ -19,5 +20,8 @@
   "devDependencies": {
     "nodemon": "3.0.2",
     "standard": "17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
   }
 }
