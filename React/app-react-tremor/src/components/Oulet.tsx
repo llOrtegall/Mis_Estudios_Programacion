@@ -9,7 +9,7 @@ const Oulet = (): JSX.Element => {
         <NavBar />
       </nav>
 
-      <main className='pt-[15vh] min-h-screen overflow-auto'>
+      <main className='pt-[15vh] w-full min-h-screen overflow-auto'>
         <Outlet />
       </main>
 

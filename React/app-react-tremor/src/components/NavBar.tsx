@@ -37,26 +37,25 @@ const NavBar = (): JSX.Element => {
     <>
       <section className='py-3 flex items-center justify-around'>
 
-        <figure className='flex'>
+        <article className='flex items-center gap-4'>
           <img src='/gane.webp' width={130} />
+          <article className='flex flex-col pt-2 text-blue-900 dark:text-white'>
+            <p className='font-medium'>Grupo Empresarial Multired S.A.</p>
+            <p className='font-medium'>Grupo Empresarial Servired S.A.</p>
+          </article>
+        </article>
+
+        <h1 className='text-4xl font-semibold text-blue-900 dark:text-white uppercase'>Intranet</h1>
+
+        <figure className='flex gap-4 items-center'>
+          <img src='/servired.webp' width={150} />
+          <img src='/multired.webp' width={160} />
         </figure>
 
-        <span className='text-4xl'>Intranet</span>
-
-        <article className='flex gap-4 items-center'>
-          <figure className='flex flex-col items-center'>
-            <img src='/servired.webp' width={150} />
-            <span className='font-medium'>Grupo Empresarial Servired SA.</span>
-          </figure>
-          <figure className='flex flex-col items-center'>
-            <img src='/multired.webp' width={160} />
-            <span className='font-medium'>Grupo Empresarial Multired SA.</span>
-          </figure>
-          <figure className='flex flex-col items-center pt-2'>
+        <figure className='flex flex-col items-center pt-2'>
             <Switch onChange={toggleTheme} />
             <span>Theme</span>
           </figure>
-        </article>
       </section>
 
       <ul className='flex w-full text-white justify-around bg-gradient-to-b from-blue-600 to-blue-900 p-2  font-semibold'>
