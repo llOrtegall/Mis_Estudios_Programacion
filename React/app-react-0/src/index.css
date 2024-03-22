@@ -1,21 +1,3 @@
-:root {
-  --color-primary: #007bff;
-  --color-secondary: #6c757d;
-  --color-success: #28a745;
-  --color-danger: #dc3545;
-  --color-warning: #ffc107;
-  --color-info: #17a2b8;
-  --color-light: #f8f9fa;
-  --color-dark: #343a40;
-  --color-white: #fff;
-  --color-black: #000;
-  --color-gray: #6c757d;
-  --color-gray-dark: #343a40;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
