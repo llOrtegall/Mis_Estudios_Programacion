@@ -1,0 +1,35 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-dark);
+  padding: 1.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav figure {
+  display: flex;
+  align-items: center;
+  color: var(--color-white);
+  font-weight: 700;
+  gap: 0.5rem;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+nav ul li a:hover {
+  color: #e8eb19;
+}
