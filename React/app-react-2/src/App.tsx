@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  DndContext,  DragOverlay,  closestCorners,  KeyboardSensor,  PointerSensor,  useSensor,  useSensors} from "@dnd-kit/core";
+import { DndContext, DragOverlay, closestCorners, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 import Container from "./container";
@@ -8,9 +8,8 @@ import { Item } from "./sortable_item";
 export default function App() {
   const [items, setItems] = useState({
     root: ["1", "2", "3"],
-    container1: ["4", "5", "6"],
-    container2: ["7", "8", "9"],
-    container3: []
+    container1: [],
+
   });
   const [activeId, setActiveId] = useState();
 
@@ -23,17 +22,9 @@ export default function App() {
 
   return (
     <div className="flex">
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCorners}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
-      >
+      <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
         <Container id="root" items={items.root} />
         <Container id="container1" items={items.container1} />
-        <Container id="container2" items={items.container2} />
-        <Container id="container3" items={items.container3} />
         <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
       </DndContext>
     </div>
@@ -41,7 +32,7 @@ export default function App() {
 
   function findContainer(id) {
     console.log(id);
-    
+
     if (id in items) {
       return id;
     }

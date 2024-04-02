@@ -22,13 +22,9 @@ export default function Container(props) {
   });
 
   return (
-    <SortableContext
-      id={id}
-      items={items}
-      strategy={verticalListSortingStrategy}
-    >
+    <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}    >
       <div ref={setNodeRef} style={containerStyle}>
-        {items.map((id) => (
+        {items.map( id => (
           <SortableItem key={id} id={id} />
         ))}
       </div>
