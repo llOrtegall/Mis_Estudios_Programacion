@@ -1,45 +1,141 @@
-import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
-import { DndContext, closestCenter } from "@dnd-kit/core";
 import { useState } from "react";
-import Item from "./Item";
+import {  DndContext,  DragOverlay,  closestCorners,  KeyboardSensor,  PointerSensor,  useSensor,  useSensors} from "@dnd-kit/core";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
-const App = () => {
-  const [items, setItems] = useState([
-    { name: 'Item 1', id: 1 },
-    { name: 'Item 2', id: 2 },
-    { name: 'Item 3', id: 3 },
-  ])
+import Container from "./container";
+import { Item } from "./sortable_item";
 
-  // TODO: Similar al onChange
-  const handleDragEnd = (ev) => {
-    const {active, over} = ev
+export default function App() {
+  const [items, setItems] = useState({
+    root: ["1", "2", "3"],
+    container1: ["4", "5", "6"],
+    container2: ["7", "8", "9"],
+    container3: []
+  });
+  const [activeId, setActiveId] = useState();
 
-    // console.log('active', active.id)
-    // console.log('over', over.id)
-
-    const oldIndex = items.findIndex(item => item.id === active.id)
-    const newIndex = items.findIndex(item => item.id === over.id)
-
-    // console.log('oldIndex', oldIndex);
-    // console.log('newIndex', newIndex);
-
-    const newOrder = arrayMove(items, oldIndex, newIndex)
-    // console.log('newOrder', newOrder)
-    setItems(newOrder)
-  }
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  );
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <h1 className="text-2xl font-semibold"> Items List</h1>
-      <SortableContext items={items}
-        strategy={verticalListSortingStrategy}>
-          <div className="flex justify-around"><h1>ID:</h1><p>Nombre:</p></div>
-          {
-            items.map(item => <Item item={item} key={item.id}/>)
-          }
-      </SortableContext>
-    </DndContext>
-  )
-}
+    <div className="flex">
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCorners}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+      >
+        <Container id="root" items={items.root} />
+        <Container id="container1" items={items.container1} />
+        <Container id="container2" items={items.container2} />
+        <Container id="container3" items={items.container3} />
+        <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
+      </DndContext>
+    </div>
+  );
 
-export default App;
+  function findContainer(id) {
+    console.log(id);
+    
+    if (id in items) {
+      return id;
+    }
+
+    return Object.keys(items).find((key) => items[key].includes(id));
+  }
+
+  function handleDragStart(event) {
+    const { active } = event;
+    const { id } = active;
+
+    setActiveId(id);
+  }
+
+  function handleDragOver(event) {
+    const { active, over, draggingRect } = event;
+    const { id } = active;
+    const { id: overId } = over;
+
+    // Find the containers
+    const activeContainer = findContainer(id);
+    const overContainer = findContainer(overId);
+
+    if (
+      !activeContainer ||
+      !overContainer ||
+      activeContainer === overContainer
+    ) {
+      return;
+    }
+
+    setItems((prev) => {
+      const activeItems = prev[activeContainer];
+      const overItems = prev[overContainer];
+
+      // Find the indexes for the items
+      const activeIndex = activeItems.indexOf(id);
+      const overIndex = overItems.indexOf(overId);
+
+      let newIndex;
+      if (overId in prev) {
+        // We're at the root droppable of a container
+        newIndex = overItems.length + 1;
+      } else {
+        const isBelowLastItem =
+          over &&
+          overIndex === overItems.length - 1 &&
+          draggingRect.offsetTop > over.rect.offsetTop + over.rect.height;
+
+        const modifier = isBelowLastItem ? 1 : 0;
+
+        newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length + 1;
+      }
+
+      return {
+        ...prev,
+        [activeContainer]: [
+          ...prev[activeContainer].filter((item) => item !== active.id)
+        ],
+        [overContainer]: [
+          ...prev[overContainer].slice(0, newIndex),
+          items[activeContainer][activeIndex],
+          ...prev[overContainer].slice(newIndex, prev[overContainer].length)
+        ]
+      };
+    });
+  }
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    const { id } = active;
+    const { id: overId } = over;
+
+    const activeContainer = findContainer(id);
+    const overContainer = findContainer(overId);
+
+    if (
+      !activeContainer ||
+      !overContainer ||
+      activeContainer !== overContainer
+    ) {
+      return;
+    }
+
+    const activeIndex = items[activeContainer].indexOf(active.id);
+    const overIndex = items[overContainer].indexOf(overId);
+
+    if (activeIndex !== overIndex) {
+      setItems((items) => ({
+        ...items,
+        [overContainer]: arrayMove(items[overContainer], activeIndex, overIndex)
+      }));
+    }
+
+    setActiveId(null);
+  }
+}
