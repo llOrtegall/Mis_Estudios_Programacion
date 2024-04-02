@@ -1,4 +1,4 @@
-import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { SortableContext, useSortable, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable'
 import { DndContext, closestCenter } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { useState } from 'react'
@@ -7,7 +7,10 @@ function App() {
   const [items, setItems] = useState([
     { id: 1, name: 'Item 1', list: 'items' },
     { id: 2, name: 'Item 2', list: 'items' },
-    { id: 3, name: 'Item 3', list: 'items' },
+    { id: 3, name: 'Item 3', list: 'items' }
+  ])
+
+  const [items2] = useState([
     { id: 4, name: 'Item 4', list: 'items2' },
     { id: 5, name: 'Item 5', list: 'items2' },
     { id: 6, name: 'Item 6', list: 'items2' }
@@ -16,28 +19,13 @@ function App() {
   const handleDragEnd = (ev) => {
     const { active, over } = ev
 
-    if (active && over) {
-      setItems(items => {
-        const activeItem = items.find(item => item.id === active.id)
-        const overItem = items.find(item => item.id === over.id)
+    setItems((items) => {
+      const oldIndex = items.findIndex(item => item.id === active.id)
+      const newIndex = items.findIndex(item => item.id === over.id)
 
-        if (activeItem && overItem) {
-          return items.map(item => {
-            if (item.id === active.id) {
-              return { ...item, list: overItem.list }
-            } else {
-              return item
-            }
-          })
-        } else {
-          return items
-        }
-      })
-    }
+      return arrayMove(items, oldIndex, newIndex)
+    })
   }
-
-  const items1 = items.filter(item => item.list === 'items')
-  const items2 = items.filter(item => item.list === 'items2')
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -45,8 +33,8 @@ function App() {
       <section className='flex w-full gap-2 px-2'>
 
         <div className='w-full flex flex-col'>
-          <SortableContext items={items1} strategy={verticalListSortingStrategy}>
-            {items1.map(item => (<Item key={item.id} item={item} />))}
+          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+            {items.map(item => (<Item key={item.id} item={item} />))}
           </SortableContext>
         </div>
 
