@@ -57,6 +57,8 @@ function KanbanBoard() {
     }
   }
 
+  console.log(activeTask);
+
   function handleDragEnd(event: DragEndEvent) {
     setActiveColumn(null)
     setActiveTask(null)

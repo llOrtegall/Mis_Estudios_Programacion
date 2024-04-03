@@ -14,7 +14,8 @@ function TaskCard({ task, deleteTask, updateTask }: Props): JSX.Element {
   const [mouseIsOver, setMouseIsOver] = useState(false)
   const [editMode, setEditMode] = useState(false)
 
-  const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({ id: task.id, data: { type: "Task", task }, disabled: editMode })
+  const { setNodeRef, attributes, listeners, transform, transition, isDragging } = 
+    useSortable({ id: task.id, data: { type: "Task", task }, disabled: editMode })
 
   const style = {
     transition,
