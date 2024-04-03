@@ -76,7 +76,7 @@ function KanbanBoard() {
     })
   }
 
-  function handleDragOver(event: DragOverEvent){
+  function handleDragOver(event: DragOverEvent) {
     const { active, over } = event
     if (!over) return
 
@@ -91,7 +91,7 @@ function KanbanBoard() {
     if (!isActiveTask) return;
 
     // Im dropping a Task a another Task
-    if( isActiveTask && isOverTask){
+    if (isActiveTask && isOverTask) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex(t => t.id === activeColumnId)
         const overIndex = tasks.findIndex(t => t.id === overColumnId)
@@ -104,7 +104,7 @@ function KanbanBoard() {
 
     const isOverColumn = over.data.current?.type === "Column";
     // Iam dropping a Task to a Column
-    if(isActiveTask && isOverColumn){
+    if (isActiveTask && isOverColumn) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex(t => t.id === activeColumnId)
 
@@ -141,15 +141,22 @@ function KanbanBoard() {
   return (
     <section className="m-auto flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
 
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} 
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}
         sensors={sensors} onDragOver={handleDragOver}>
+
         <article className="m-auto flex gap-4">
           <header className="flex gap-4">
             <SortableContext items={columnsId}>
-              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn} createTask={createTask} tasks={tasks.filter((task) => task.columnId === column.id)} deleteTask={deleteTask} updateTask={updateTask} />)}
+              {columns.map(column =>
+              (
+                <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn}
+                  createTask={createTask} tasks={tasks.filter((task) => task.columnId === column.id)} deleteTask={deleteTask} updateTask={updateTask} />
+              )
+              )}
             </SortableContext>
           </header>
-          <button className="flex items-center justify-center gap-4 h-[60px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-slate-800 border-2 border-slate-900 ring-rose-500 hover:ring-2" onClick={() => createNewColumn()}>
+          <button onClick={() => createNewColumn()}
+            className="flex items-center justify-center gap-4 h-[60px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-slate-800 border-2 border-slate-900 ring-rose-500 hover:ring-2" >
             <PlusIcon />
             <span>Add Colum</span>
           </button>
