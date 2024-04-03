@@ -1,5 +1,5 @@
-import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable"
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core"
+import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { useMemo, useState } from "react"
 import { createPortal } from "react-dom"
@@ -28,12 +28,14 @@ export default function App() {
   })
 
   const [bodega2, setBodega2] = useState<Bodega>({
-    id: 1,
+    id: 2,
     nombre: 'Bodega B',
     direccion: 'Calle 2',
     telefono: '51231451',
     items: [{ id: 4, nombre: 'item 4', precio: 1000 }, { id: 5, nombre: 'item 5', precio: 2000 }, { id: 6, nombre: 'item 6', precio: 3000 }]
   })
+
+  const bodegasIds = [bodega.id, bodega2.id]
 
   const [activeItem, setActiveItem] = useState<Item | null>(null)
 
@@ -55,14 +57,14 @@ export default function App() {
 
     if (activeItem === overItem) return
 
-    if(activeItem === bodega.items.find(i => i.id === activeItem)?.id) {
+    if (activeItem === bodega.items.find(i => i.id === activeItem)?.id) {
       setBodega(prev => {
         const activeIndex = prev.items.findIndex(i => i.id === activeItem)
         const overIndex = prev.items.findIndex(i => i.id === overItem)
         const items = arrayMove(prev.items, activeIndex, overIndex)
         return { ...prev, items }
-      })      
-    } 
+      })
+    }
 
     if (activeItem === bodega2.items.find(i => i.id === activeItem)?.id) {
       setBodega2(prev => {
@@ -72,16 +74,16 @@ export default function App() {
         return { ...prev, items }
       })
     }
-    
   }
 
 
   return (
     <section className="flex h-screen items-center justify-center gap-4">
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        <RenderBodega bodg={bodega} />
-        <RenderBodega bodg={bodega2} />
-
+        <SortableContext items={bodegasIds}>
+          <RenderBodega bodg={bodega} />
+          <RenderBodega bodg={bodega2} />
+        </SortableContext>
         {
           createPortal(
             <DragOverlay>
@@ -100,11 +102,10 @@ export default function App() {
 }
 
 function RenderBodega({ bodg }: { bodg: Bodega }) {
-
   const itemsIds = useMemo(() => bodg.items.map(i => i.id), [bodg.items])
 
   return (
-    <div className="bg-slate-900 p-12 rounded-lg flex flex-col gap-2" >
+    <div className="bg-slate-900 p-12 rounded-lg flex flex-col gap-2">
       <h2 className="text-lg font-bold text-center pb-1 border-b-2">{bodg.nombre}</h2>
       <article className="flex gap-2 p-2 border rounded-md">
         <p><span className="font-bold">Dirreción: </span> {bodg.direccion}</p>
@@ -121,8 +122,8 @@ function RenderBodega({ bodg }: { bodg: Bodega }) {
 
 function RenderItem({ item }: { item: Item }) {
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id, data: { type: 'item', item }})
- 
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id, data: { type: 'item', item } })
+
   const style = {
     transition,
     transform: CSS.Transform.toString(transform),
