@@ -75,7 +75,14 @@ function KanbanBoard() {
     setTasks([...tasks, newTask])
   }
 
-  function deleteTask (id: Id) {
+  function updateTask(id: Id, content: string) {
+    setTasks(tasks.map((task) => {
+      if (task.id !== id) return task
+      return { ...task, content }
+    }))
+  }
+
+  function deleteTask(id: Id) {
     setTasks(tasks.filter(task => task.id !== id))
   }
 
@@ -86,7 +93,7 @@ function KanbanBoard() {
         <article className="m-auto flex gap-4">
           <header className="flex gap-4">
             <SortableContext items={columnsId}>
-              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn} createTask={createTask} tasks={tasks.filter((task) => task.columnId === column.id)} deleteTask={deleteTask}/>)}
+              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn} createTask={createTask} tasks={tasks.filter((task) => task.columnId === column.id)} deleteTask={deleteTask} updateTask={updateTask} />)}
             </SortableContext>
           </header>
           <button className="flex items-center justify-center gap-4 h-[60px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-slate-800 border-2 border-slate-900 ring-rose-500 hover:ring-2" onClick={() => createNewColumn()}>
@@ -103,6 +110,9 @@ function KanbanBoard() {
                   updateColumn={updateColumn}
                   deleteColumn={deleteColumn}
                   createTask={createTask}
+                  updateTask={updateTask}
+                  deleteTask={deleteTask}
+                  tasks={tasks.filter(task => task.columnId === activeColumn.id)}
                   column={activeColumn}
                 />
               )}
