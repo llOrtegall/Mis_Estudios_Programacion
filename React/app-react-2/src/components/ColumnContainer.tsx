@@ -1,8 +1,8 @@
-import { useSortable } from "@dnd-kit/sortable";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { Id, IntColumn, Task } from "../types/types";
 import TrashIcon from "./icons/TrashIcons";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import PlusIcon from "./icons/PlusIcon";
 import TaskCard from "./TaskCards";
 
@@ -17,8 +17,9 @@ interface Props {
 }
 
 function ColumnContainer(props: Props) {
+  const { column, deleteColumn, updateColumn, createTask, tasks, deleteTask, updateTask } = props;
+  const tasksIds = useMemo(() => { return tasks.map((task) => task.id) }, [tasks])
   const [editMode, setEditMode] = useState(false)
-  const { column, deleteColumn, updateColumn, createTask, tasks, deleteTask, updateTask} = props;
 
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({ id: column.id, data: { type: "Column", column }, disabled: editMode })
 
@@ -35,6 +36,8 @@ function ColumnContainer(props: Props) {
     )
   }
 
+
+
   return (
     <section ref={setNodeRef} style={style}
       className="bg-slate-900 w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col p-2">
@@ -50,7 +53,15 @@ function ColumnContainer(props: Props) {
       </div>
 
       <article className="flex flex-col flex-grow overflow-x-hidden overflow-y-auto">
-        {tasks.map(task => <TaskCard key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask}/>)}
+        <SortableContext items={tasksIds}>
+          {tasks.map(task => {
+            return <TaskCard key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask} />
+          })}
+        </SortableContext>
+          {/* {tasks.map(task => {
+            <TaskCard key={task.id} task={task}
+              deleteTask={deleteTask} updateTask={updateTask} />
+          })} */}
       </article>
 
       <button className="flex gap-2 items-center mt-1 rounded-md p-4 hover:bg-slate-800 hover:text-rose-500 active:bg-black"

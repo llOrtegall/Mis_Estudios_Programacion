@@ -5,6 +5,7 @@ import { Id, IntColumn, Task } from "../types/types"
 import { useMemo, useState } from "react"
 import { createPortal } from "react-dom"
 import PlusIcon from "./icons/PlusIcon"
+import TaskCard from "./TaskCards"
 
 function KanbanBoard() {
   const [columns, setColumns] = useState<IntColumn[]>([])
@@ -12,6 +13,8 @@ function KanbanBoard() {
   const [tasks, setTasks] = useState<Task[]>([])
 
   const [activeColumn, setActiveColumn] = useState<IntColumn | null>(null)
+
+  const [activeTask, setActiveTask] = useState<Task | null>(null)
 
   const sensors = useSensors(useSensor(PointerSensor, {
     activationConstraint: {
@@ -44,6 +47,11 @@ function KanbanBoard() {
   function handleDragStart(event: DragStartEvent) {
     if (event.active.data.current?.type === "Column") {
       setActiveColumn(event.active.data.current.column)
+      return
+    }
+
+    if (event.active.data.current?.type === "Task") {
+      setActiveTask(event.active.data.current.task)
       return
     }
   }
@@ -116,6 +124,15 @@ function KanbanBoard() {
                   column={activeColumn}
                 />
               )}
+              {
+                activeTask && (
+                  <TaskCard
+                    task={activeTask}
+                    deleteTask={deleteTask}
+                    updateTask={updateTask}
+                  />
+                )
+              }
             </DragOverlay>,
             document.body
           )}
