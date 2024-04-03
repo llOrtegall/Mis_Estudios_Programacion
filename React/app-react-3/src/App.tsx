@@ -1,5 +1,5 @@
-import { SortableContext, useSortable } from "@dnd-kit/sortable"
-import { DndContext, DragOverlay, DragStartEvent } from "@dnd-kit/core"
+import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable"
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core"
 import { CSS } from "@dnd-kit/utilities"
 import { useMemo, useState } from "react"
 import { createPortal } from "react-dom"
@@ -19,7 +19,7 @@ interface Bodega {
 }
 
 export default function App() {
-  const [bodega] = useState<Bodega>({
+  const [bodega, setBodega] = useState<Bodega>({
     id: 1,
     nombre: 'Bodega A',
     direccion: 'Calle 1',
@@ -27,7 +27,7 @@ export default function App() {
     items: [{ id: 1, nombre: 'item 1', precio: 1000 }, { id: 2, nombre: 'item 2', precio: 2000 }, { id: 3, nombre: 'item 3', precio: 3000 }]
   })
 
-  const [bodega2] = useState<Bodega>({
+  const [bodega2, setBodega2] = useState<Bodega>({
     id: 1,
     nombre: 'Bodega B',
     direccion: 'Calle 2',
@@ -44,10 +44,41 @@ export default function App() {
     }
   }
 
+  function handleDragEnd(ev: DragEndEvent) {
+    setActiveItem(null)
+    const { active, over } = ev
+
+    if (!over) return
+
+    const activeItem = active.id
+    const overItem = over?.id
+
+    if (activeItem === overItem) return
+
+    if(activeItem === bodega.items.find(i => i.id === activeItem)?.id) {
+      setBodega(prev => {
+        const activeIndex = prev.items.findIndex(i => i.id === activeItem)
+        const overIndex = prev.items.findIndex(i => i.id === overItem)
+        const items = arrayMove(prev.items, activeIndex, overIndex)
+        return { ...prev, items }
+      })      
+    } 
+
+    if (activeItem === bodega2.items.find(i => i.id === activeItem)?.id) {
+      setBodega2(prev => {
+        const activeIndex = prev.items.findIndex(i => i.id === activeItem)
+        const overIndex = prev.items.findIndex(i => i.id === overItem)
+        const items = arrayMove(prev.items, activeIndex, overIndex)
+        return { ...prev, items }
+      })
+    }
+    
+  }
+
 
   return (
     <section className="flex h-screen items-center justify-center gap-4">
-      <DndContext onDragStart={handleDragStart}>
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <RenderBodega bodg={bodega} />
         <RenderBodega bodg={bodega2} />
 
