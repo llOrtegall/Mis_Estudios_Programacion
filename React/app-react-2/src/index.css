@@ -7,3 +7,15 @@ body {
   font-family: 'Poppins', sans-serif;
   color: #ffffff;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar:vertical {
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb{
+  @apply bg-rose-300 rounded-xl
+}

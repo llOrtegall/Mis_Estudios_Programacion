@@ -1,10 +1,10 @@
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
+import { SortableContext, arrayMove } from "@dnd-kit/sortable"
 import ColumnContainer from "./ColumnContainer"
 import { Id, IntColumn } from "../types/types"
-import { SortableContext, arrayMove } from "@dnd-kit/sortable"
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
-import PlusIcon from "./icons/PlusIcon"
 import { useMemo, useState } from "react"
 import { createPortal } from "react-dom"
+import PlusIcon from "./icons/PlusIcon"
 
 function KanbanBoard() {
   const [columns, setColumns] = useState<IntColumn[]>([])
@@ -34,6 +34,10 @@ function KanbanBoard() {
 
   function deleteColumn(id: Id) {
     setColumns(columns.filter(column => column.id !== id))
+  }
+
+  function updateColumn(id: Id, title: string) {
+    setColumns(columns.map(column => column.id === id ? { ...column, title } : column))
   }
 
   function handleDragStart(event: DragStartEvent) {
@@ -67,7 +71,7 @@ function KanbanBoard() {
         <article className="m-auto flex gap-4">
           <header className="flex gap-4">
             <SortableContext items={columnsId}>
-              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} />)}
+              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn}/>)}
             </SortableContext>
           </header>
           <button className="flex items-center justify-center gap-4 h-[60px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-slate-800 border-2 border-slate-900 ring-rose-500 hover:ring-2" onClick={() => createNewColumn()}>
@@ -81,6 +85,7 @@ function KanbanBoard() {
             <DragOverlay>
               {activeColumn && (
                 <ColumnContainer
+                  updateColumn={updateColumn}
                   deleteColumn={deleteColumn}
                   column={activeColumn}
                 />
