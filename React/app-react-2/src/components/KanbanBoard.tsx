@@ -1,7 +1,7 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { SortableContext, arrayMove } from "@dnd-kit/sortable"
 import ColumnContainer from "./ColumnContainer"
-import { Id, IntColumn } from "../types/types"
+import { Id, IntColumn, Task } from "../types/types"
 import { useMemo, useState } from "react"
 import { createPortal } from "react-dom"
 import PlusIcon from "./icons/PlusIcon"
@@ -9,6 +9,7 @@ import PlusIcon from "./icons/PlusIcon"
 function KanbanBoard() {
   const [columns, setColumns] = useState<IntColumn[]>([])
   const columnsId = useMemo(() => columns.map(column => column.id), [columns])
+  const [tasks, setTasks] = useState<Task[]>([])
 
   const [activeColumn, setActiveColumn] = useState<IntColumn | null>(null)
 
@@ -64,6 +65,16 @@ function KanbanBoard() {
     })
   }
 
+  function createTask(columnId: Id) {
+    const newTask: Task = {
+      id: generateId(),
+      columnId,
+      content: `Task ${tasks.length + 1}`
+    }
+
+    setTasks([...tasks, newTask])
+  }
+
   return (
     <section className="m-auto flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
 
@@ -71,7 +82,7 @@ function KanbanBoard() {
         <article className="m-auto flex gap-4">
           <header className="flex gap-4">
             <SortableContext items={columnsId}>
-              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn}/>)}
+              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn} createTask={createTask} tasks={tasks.filter((task) => task.columnId === column.id)} />)}
             </SortableContext>
           </header>
           <button className="flex items-center justify-center gap-4 h-[60px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-slate-800 border-2 border-slate-900 ring-rose-500 hover:ring-2" onClick={() => createNewColumn()}>
@@ -87,6 +98,7 @@ function KanbanBoard() {
                 <ColumnContainer
                   updateColumn={updateColumn}
                   deleteColumn={deleteColumn}
+                  createTask={createTask}
                   column={activeColumn}
                 />
               )}
