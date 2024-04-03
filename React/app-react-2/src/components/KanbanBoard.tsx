@@ -1,4 +1,4 @@
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
+import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { SortableContext, arrayMove } from "@dnd-kit/sortable"
 import ColumnContainer from "./ColumnContainer"
 import { Id, IntColumn, Task } from "../types/types"
@@ -38,6 +38,7 @@ function KanbanBoard() {
 
   function deleteColumn(id: Id) {
     setColumns(columns.filter(column => column.id !== id))
+    setTasks(tasks.filter(task => task.columnId !== id))
   }
 
   function updateColumn(id: Id, title: string) {
@@ -57,6 +58,8 @@ function KanbanBoard() {
   }
 
   function handleDragEnd(event: DragEndEvent) {
+    setActiveColumn(null)
+    setActiveTask(null)
     const { active, over } = event
     if (!over) return
 
@@ -71,6 +74,47 @@ function KanbanBoard() {
 
       return arrayMove(columns, activeColumnIndex, overColumnIndex)
     })
+  }
+
+  function handleDragOver(event: DragOverEvent){
+    const { active, over } = event
+    if (!over) return
+
+    const activeColumnId = active.id;
+    const overColumnId = over.id;
+
+    if (activeColumnId === overColumnId) return
+
+    const isActiveTask = active.data.current?.type === "Task"
+    const isOverTask = over.data.current?.type === "Task"
+
+    if (!isActiveTask) return;
+
+    // Im dropping a Task a another Task
+    if( isActiveTask && isOverTask){
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex(t => t.id === activeColumnId)
+        const overIndex = tasks.findIndex(t => t.id === overColumnId)
+
+        tasks[activeIndex].columnId = tasks[overIndex].columnId
+
+        return arrayMove(tasks, activeIndex, overIndex)
+      })
+    }
+
+    const isOverColumn = over.data.current?.type === "Column";
+    // Iam dropping a Task to a Column
+    if(isActiveTask && isOverColumn){
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex(t => t.id === activeColumnId)
+
+        tasks[activeIndex].columnId = overColumnId
+
+        return arrayMove(tasks, activeIndex, activeIndex)
+      })
+    }
+
+
   }
 
   function createTask(columnId: Id) {
@@ -97,7 +141,8 @@ function KanbanBoard() {
   return (
     <section className="m-auto flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
 
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} 
+        sensors={sensors} onDragOver={handleDragOver}>
         <article className="m-auto flex gap-4">
           <header className="flex gap-4">
             <SortableContext items={columnsId}>
