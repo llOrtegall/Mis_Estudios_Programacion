@@ -75,6 +75,10 @@ function KanbanBoard() {
     setTasks([...tasks, newTask])
   }
 
+  function deleteTask (id: Id) {
+    setTasks(tasks.filter(task => task.id !== id))
+  }
+
   return (
     <section className="m-auto flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
 
@@ -82,7 +86,7 @@ function KanbanBoard() {
         <article className="m-auto flex gap-4">
           <header className="flex gap-4">
             <SortableContext items={columnsId}>
-              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn} createTask={createTask} tasks={tasks.filter((task) => task.columnId === column.id)} />)}
+              {columns.map(column => <ColumnContainer key={column.id} column={column} deleteColumn={deleteColumn} updateColumn={updateColumn} createTask={createTask} tasks={tasks.filter((task) => task.columnId === column.id)} deleteTask={deleteTask}/>)}
             </SortableContext>
           </header>
           <button className="flex items-center justify-center gap-4 h-[60px] w-[350px] min-w-[350px] cursor-pointer rounded-lg bg-slate-800 border-2 border-slate-900 ring-rose-500 hover:ring-2" onClick={() => createNewColumn()}>
