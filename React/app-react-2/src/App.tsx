@@ -1,7 +1,9 @@
+import KanbanBoard from "./components/KanbanBoard"
+
 function App() {
   return (
-    <section>
-      <h1>React App</h1>
+    <section className="p-2">
+      <KanbanBoard />
     </section>
   )
 }
