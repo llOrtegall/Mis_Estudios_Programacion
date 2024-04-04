@@ -11,7 +11,7 @@ function RenderItem({ item, bodegaId }: { item: Item, bodegaId?: string }) {
     transform: CSS.Transform.toString(transform),
   }
 
-  const cssClasses = "flex w-[300px] h-[42px] justify-around my-4 py-2 border rounded-lg bg-sky-200 text-black"
+  const cssClasses = "flex w-full h-[42px] justify-around my-4 py-2 border rounded-lg bg-sky-200 text-black"
 
   if (isDragging) {
     return (
