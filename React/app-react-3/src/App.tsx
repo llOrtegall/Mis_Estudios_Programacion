@@ -1,4 +1,4 @@
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core"
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { useMemo, useState } from "react"
@@ -34,6 +34,13 @@ export default function App() {
     telefono: '51231451',
     items: [{ id: 4, nombre: 'item 4', precio: 1000 }, { id: 5, nombre: 'item 5', precio: 2000 }, { id: 6, nombre: 'item 6', precio: 3000 }]
   })
+
+  const sensors = useSensors(useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 150,
+    }
+  })
+  )
 
   const bodegasIds = [bodega.id, bodega2.id]
 
@@ -88,7 +95,7 @@ export default function App() {
 
   return (
     <section className="flex h-screen items-center justify-center gap-4">
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
         <SortableContext items={bodegasIds}>
           <RenderBodega bodg={bodega} />
           <RenderBodega bodg={bodega2} />
