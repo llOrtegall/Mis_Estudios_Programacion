@@ -1,9 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities" 
+import { CSS } from "@dnd-kit/utilities"
 import { Item } from "../types/types"
 
 function RenderItem({ item }: { item: Item }) {
-
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id, data: { type: 'item', item } })
 
   const style = {
@@ -11,16 +10,16 @@ function RenderItem({ item }: { item: Item }) {
     transform: CSS.Transform.toString(transform),
   }
 
+  const cssClasses = "flex w-[300px] h-[42px] justify-around my-4 py-2 border rounded-lg bg-sky-200 text-black"
+
   if (isDragging) {
     return (
-      <div ref={setNodeRef} style={style}
-        className="flex w-[300px] h-[42px] justify-around my-4 py-2 border rounded-lg bg-sky-200 text-black cursor-grab opacity-30" />
+      <div ref={setNodeRef} style={{ ...style, cursor: 'grab', opacity: 0.3 }} className={cssClasses} />
     )
   }
 
   return (
-    <section ref={setNodeRef} {...attributes} {...listeners} style={style}
-      className="flex w-[300px] h-[42px] justify-around my-4 py-2 border rounded-lg bg-sky-200 text-black">
+    <section ref={setNodeRef} {...attributes} {...listeners} style={style} className={cssClasses}>
       <p><span className="font-bold">Nombre: </span>{item.nombre}</p>
       <p><span className="font-bold">Precio: </span>{item.precio}</p>
     </section>

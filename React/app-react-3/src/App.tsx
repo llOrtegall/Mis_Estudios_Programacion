@@ -1,12 +1,10 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { SortableContext } from "@dnd-kit/sortable"
-import { useState } from "react"
-import { createPortal } from "react-dom"
-import { Bodega, Item } from "./types/types"
 import RenderBodega from "./components/Bodega"
+import { Bodega, Item } from "./types/types"
 import RenderItem from "./components/Items"
-
-
+import { createPortal } from "react-dom"
+import { useState } from "react"
 
 export default function App() {
   const [bodega, setBodega] = useState<Bodega>({
@@ -46,14 +44,14 @@ export default function App() {
   function handleDragEnd(ev: DragEndEvent) {
     setActiveItem(null)
     const { active, over } = ev
-  
+
     if (!over) return
-  
+
     const activeItem = active.id
     const overItem = over?.id
-  
+
     if (activeItem === overItem) return
-  
+
     // Si el item activo está en la bodega 1
     const itemInBodega1 = bodega.items.find(i => i.id === activeItem)
     if (itemInBodega1) {
@@ -61,13 +59,13 @@ export default function App() {
         const items = prev.items.filter(i => i.id !== activeItem)
         return { ...prev, items }
       })
-  
+
       setBodega2(prev => {
         const items = [...prev.items, itemInBodega1]
         return { ...prev, items }
       })
     }
-  
+
     // Si el item activo está en la bodega 2
     const itemInBodega2 = bodega2.items.find(i => i.id === activeItem)
     if (itemInBodega2) {
@@ -75,7 +73,7 @@ export default function App() {
         const items = prev.items.filter(i => i.id !== activeItem)
         return { ...prev, items }
       })
-  
+
       setBodega(prev => {
         const items = [...prev.items, itemInBodega2]
         return { ...prev, items }
