@@ -8,7 +8,7 @@ import { useState } from "react"
 
 export default function App() {
   const [bodega, setBodega] = useState<Bodega>({
-    id: 1,
+    id: '73123n123bb41ub4i1bi1241i24ub',
     nombre: 'Bodega A',
     direccion: 'Calle 1',
     telefono: '123456789',
@@ -16,7 +16,7 @@ export default function App() {
   })
 
   const [bodega2, setBodega2] = useState<Bodega>({
-    id: 2,
+    id: 'angr98h9fh34h7934rh3984r9348rh',
     nombre: 'Bodega B',
     direccion: 'Calle 2',
     telefono: '51231451',
@@ -32,31 +32,33 @@ export default function App() {
 
   const bodegasIds = [bodega.id, bodega2.id]
 
-  const [activeItem, setActiveItem] = useState<Item | null>(null)
+  const [ItemActivoId, setItemActivoId] = useState<Item | null>(null)
 
   function handleDragStart(ev: DragStartEvent) {
     if (ev.active.data.current?.type === 'item') {
-      setActiveItem(ev.active.data.current?.item)
+      setItemActivoId(ev.active.data.current?.item)
       return
     }
   }
 
   function handleDragEnd(ev: DragEndEvent) {
-    setActiveItem(null)
-    const { active, over } = ev
+    const {active, over} = ev
 
-    if (!over) return
+    const ItemActivoId = active.data.current?.bodegaOrigen
+    const BodegaOverId = over?.data.current?.bodega.id
 
-    const activeItem = active.id
-    const overItem = over?.id
+    if(ItemActivoId === BodegaOverId){
+      console.log('Mismo lugar');
+      return
+    }
 
-    if (activeItem === overItem) return
+    const itemIdMov = active.id
 
-    // Si el item activo está en la bodega 1
-    const itemInBodega1 = bodega.items.find(i => i.id === activeItem)
+
+    const itemInBodega1 = bodega.items.find(i => i.id == itemIdMov)    
     if (itemInBodega1) {
       setBodega(prev => {
-        const items = prev.items.filter(i => i.id !== activeItem)
+        const items = prev.items.filter(i => i.id != itemIdMov)
         return { ...prev, items }
       })
 
@@ -67,10 +69,10 @@ export default function App() {
     }
 
     // Si el item activo está en la bodega 2
-    const itemInBodega2 = bodega2.items.find(i => i.id === activeItem)
+    const itemInBodega2 = bodega2.items.find(i => i.id == itemIdMov)
     if (itemInBodega2) {
       setBodega2(prev => {
-        const items = prev.items.filter(i => i.id !== activeItem)
+        const items = prev.items.filter(i => i.id != itemIdMov)
         return { ...prev, items }
       })
 
@@ -79,21 +81,22 @@ export default function App() {
         return { ...prev, items }
       })
     }
+
   }
 
   return (
     <section className="flex h-screen items-center justify-center gap-4">
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} sensors={sensors}>
         <SortableContext items={bodegasIds}>
-          <RenderBodega bodg={bodega} />
-          <RenderBodega bodg={bodega2} />
+          <RenderBodega bodega={bodega} />
+          <RenderBodega bodega={bodega2} />
         </SortableContext>
         {
           createPortal(
             <DragOverlay>
               {
-                activeItem && (
-                  <RenderItem item={activeItem} />
+                ItemActivoId && (
+                  <RenderItem item={ItemActivoId} />
                 )
               }
             </DragOverlay>,

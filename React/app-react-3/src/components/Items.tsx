@@ -2,8 +2,9 @@ import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { Item } from "../types/types"
 
-function RenderItem({ item }: { item: Item }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: item.id, data: { type: 'item', item } })
+function RenderItem({ item, bodegaId }: { item: Item, bodegaId?: string }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = 
+    useSortable({ id: `${item.id}`, data: { bodegaOrigen: bodegaId, type: 'item', item }})
 
   const style = {
     transition,

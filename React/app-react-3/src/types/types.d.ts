@@ -5,7 +5,7 @@ export interface Item {
 }
 
 export interface Bodega {
-  id: number
+  id: string
   nombre: string
   direccion: string
   telefono: string
