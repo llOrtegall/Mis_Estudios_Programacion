@@ -1,5 +1,5 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core"
-import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable"
+import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { useMemo, useState } from "react"
 import { createPortal } from "react-dom"
@@ -49,33 +49,42 @@ export default function App() {
   function handleDragEnd(ev: DragEndEvent) {
     setActiveItem(null)
     const { active, over } = ev
-
+  
     if (!over) return
-
+  
     const activeItem = active.id
     const overItem = over?.id
-
+  
     if (activeItem === overItem) return
-
-    if (activeItem === bodega.items.find(i => i.id === activeItem)?.id) {
+  
+    // Si el item activo está en la bodega 1
+    const itemInBodega1 = bodega.items.find(i => i.id === activeItem)
+    if (itemInBodega1) {
       setBodega(prev => {
-        const activeIndex = prev.items.findIndex(i => i.id === activeItem)
-        const overIndex = prev.items.findIndex(i => i.id === overItem)
-        const items = arrayMove(prev.items, activeIndex, overIndex)
+        const items = prev.items.filter(i => i.id !== activeItem)
+        return { ...prev, items }
+      })
+  
+      setBodega2(prev => {
+        const items = [...prev.items, itemInBodega1]
         return { ...prev, items }
       })
     }
-
-    if (activeItem === bodega2.items.find(i => i.id === activeItem)?.id) {
+  
+    // Si el item activo está en la bodega 2
+    const itemInBodega2 = bodega2.items.find(i => i.id === activeItem)
+    if (itemInBodega2) {
       setBodega2(prev => {
-        const activeIndex = prev.items.findIndex(i => i.id === activeItem)
-        const overIndex = prev.items.findIndex(i => i.id === overItem)
-        const items = arrayMove(prev.items, activeIndex, overIndex)
+        const items = prev.items.filter(i => i.id !== activeItem)
+        return { ...prev, items }
+      })
+  
+      setBodega(prev => {
+        const items = [...prev.items, itemInBodega2]
         return { ...prev, items }
       })
     }
   }
-
 
   return (
     <section className="flex h-screen items-center justify-center gap-4">
