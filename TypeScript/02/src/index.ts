@@ -10,6 +10,7 @@ class Sale {
   }
 }
 
+// TODO: extends es para heredar de una clase
 class SaleWithTas extends Sale {
   private tax: number;
 
@@ -17,19 +18,25 @@ class SaleWithTas extends Sale {
     super(amount); // call the parent constructor
     this.tax = tax;
   }
-
-  public getTotal(): number {
+  // TODO: la palabra override se asegura que el metodo que se esta sobreescribiendo exista en la clase padre
+  override getTotal(): number {
     return super.getTotal() + this.tax;
   }
 }
 
 let sale = new Sale(450);
-// sale.amount = 500;
 const res = sale.getTotal();
-console.log(res);
-
 let saleWithTax = new SaleWithTas(50, 300);
-
 const res2 = saleWithTax.getTotal();
 
-console.log(res2);
+type Beer = {
+  name: string,
+  price: number,
+  alcohol: number
+}
+
+function show (beer: Beer) {
+  console.log(beer);
+}
+
+show({name: 'Corona', price: 50, alcohol: 4.5});
