@@ -113,3 +113,35 @@ function showDrinks (drinks: AlcoholLicDrink[]) {
 }
 
 showDrinks(ad);
+
+interface CardI {
+  nombre: string
+  precio: number
+  color: string
+  model: string
+  showInfo(): string
+}
+
+class Car implements CardI {
+  nombre: string;
+  precio: number;
+  color: string;
+  model: string;
+
+  constructor(nombre: string, precio: number, color: string, model: string){
+    this.nombre = nombre;
+    this.precio = precio;
+    this.color = color;
+    this.model = model;
+  }
+
+  showInfo(): string {
+    return `Car: ${this.nombre}, precio: ${this.precio}, Color: ${this.color}, Modelo: ${this.model}`
+  }
+  
+}
+
+const card = new Car('Chevrolet', 250, 'Rojo', '2023')
+console.log(card.showInfo());
+const card2 = new Car('Mazda', 355, 'Green', '2024')
+console.log(card2.showInfo());
