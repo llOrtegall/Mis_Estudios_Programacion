@@ -1,36 +1,18 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    node: true
-  },
+  root: true,
+  env: { browser: true, es2020: true },
   extends: [
-    'standard-with-typescript',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended'
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
   ],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: './tsconfig.json'
-  },
-  plugins: [
-    'react',
-    '@typescript-eslint'
-  ],
+  plugins: ['react-refresh'],
   rules: {
-    'react/react-in-jsx-scope': 'off'
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
   },
-  overrides: [
-    {
-      env: {
-        node: true
-      },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script'
-      }
-    }
-  ]
 }
