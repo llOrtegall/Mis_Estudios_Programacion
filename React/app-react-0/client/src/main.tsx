@@ -8,17 +8,34 @@ import LoginPage from './pages/LoginPage'
 import NotFound from './pages/NotFound'
 
 import { AuthProvider } from './auth/AuthContext'
+import Dashboard from './pages/DashBoard'
+import About from './pages/About'
+import Contact from './pages/Contact'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/login',
     element: <LoginPage />,
     errorElement: <NotFound />
   },
   {
-    path: '/home',
+    path: '/',
     element: <Root />,
-    errorElement: <NotFound />
+    errorElement: <NotFound />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />
+      },
+      {
+        path: 'about',
+        element: <About />
+      },
+      {
+        path: 'contact',
+        element: <Contact />
+      }
+    ]
   }
 ])
 
