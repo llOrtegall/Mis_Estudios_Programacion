@@ -1,25 +1,14 @@
 import { createContext, ReactNode, useState } from 'react'
-import { IAuthContext } from '../types/interfaces'
-import { useNavigate } from 'react-router-dom'
+import { IAuthContext, IUser } from '../types/interfaces'
 
-export const AuthContext = createContext<IAuthContext>({ isAuthenticated: false, login: () => {}, logout: () => {} })
+export const AuthContext = createContext<IAuthContext>({} as IAuthContext)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-  const navigate = useNavigate()
-
-  const login = () => {
-    setIsAuthenticated(true)
-    navigate('/home')
-  }
-  const logout = (): void => {
-    setIsAuthenticated(false)
-    navigate('/')
-  }
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+  const [user, setUser] = useState<IUser>({ username: '', email: '' })
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
       {children}
     </AuthContext.Provider>
   )

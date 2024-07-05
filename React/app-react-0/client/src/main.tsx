@@ -12,18 +12,20 @@ import { AuthProvider } from './auth/AuthContext'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (<AuthProvider><LoginPage /></AuthProvider>),
+    element: <LoginPage />,
     errorElement: <NotFound />
   },
   {
     path: '/home',
-    element: (<AuthProvider><Root /></AuthProvider>),
+    element: <Root />,
     errorElement: <NotFound />
   }
 ])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 )

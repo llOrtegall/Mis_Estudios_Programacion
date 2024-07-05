@@ -1,5 +1,13 @@
+import { Dispatch, SetStateAction } from 'react'
+
+export interface IUser {
+  username: string;
+  email: string;
+}
+
 export interface IAuthContext {
-  isAuthenticated: boolean
-  login(): void
-  logout(): void
+  isAuthenticated: boolean;
+  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
+  user: IUser;
+  setUser: Dispatch<SetStateAction<IUser>>;
 }
