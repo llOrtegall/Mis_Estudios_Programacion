@@ -7,15 +7,17 @@ import Root from './routes/Root'
 import LoginPage from './pages/LoginPage'
 import NotFound from './pages/NotFound'
 
+import { AuthProvider } from './auth/AuthContext'
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LoginPage />,
+    element: (<AuthProvider><LoginPage /></AuthProvider>),
     errorElement: <NotFound />
   },
   {
     path: '/home',
-    element: <Root />,
+    element: (<AuthProvider><Root /></AuthProvider>),
     errorElement: <NotFound />
   }
 ])
