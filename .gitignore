@@ -3,3 +3,5 @@ out
 node_modules
 Self-taught-programming-studies.iml
 dist
+yarn.lock
+.env
