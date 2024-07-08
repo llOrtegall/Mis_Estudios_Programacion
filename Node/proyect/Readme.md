@@ -38,4 +38,16 @@ La API proporciona los siguientes endpoints:
     - Parámetro opcional: `?limit=5` permite especificar la cantidad de productos a retornar, con un máximo de 100.
 
 - **Obtener Producto por ID:**
-  - `GET /api/v1/products/:id`: Obtiene los detalles de un producto específico mediante su ID.
+  - `GET /api/v1/product/:id`: Obtiene los detalles de un producto específico mediante su ID. (endpoint en singular)
+
+- **Crear Producto:**
+  - `POST /api/v1/products`: Crea un nuevo producto.
+  - Parámetros requeridos: `name`, `price`, `description`, `image`.
+
+- **Actualizar Producto:**
+  - `PATCH /api/v1/products/:id`: Actualiza un producto existente mediante su ID.
+  - Parámetros requeridos: `name`, `price`, `description`, `image`.
+
+- **Eliminar Producto:**
+  - `DELETE /api/v1/product/:id`: Elimina un producto existente mediante su ID.
+  - Parámetro requerido: `id`.
