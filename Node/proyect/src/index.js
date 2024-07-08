@@ -2,74 +2,36 @@ import { faker } from '@faker-js/faker'
 import express from 'express'
 import 'dotenv/config'
 
-const products = [
-  {
-    id: 1,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 2,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 3,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 4,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 5,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 6,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 7,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 8,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 9,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  },
-  {
-    id: 10,
-    name: faker.commerce.productName(),
-    price: faker.commerce.price(),
-    category: faker.commerce.department()
-  }
-]
-
 const app = express()
 const PORT = process.env.PORT || 3000
 
+const products = []
+
 app.get('/products', (req, res) => {
-  return res.json(products)
+  const limit = parseInt(req.query.limit) || 10
+
+  if (limit > 100) {
+    return res.status(400).json({ error: 'Limit should be less than 100' })
+  }
+
+  try {
+    const generatedProducts = []
+    for (let i = 0; i < limit; i++) {
+      generatedProducts.push({
+        id: i,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.url()
+      })
+    }
+    return res.status(200).json(generatedProducts)
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+
+app.get('/products/filter', (req, res) => {
+  return res.send('Filter')
 })
 
 app.get('/products/:id', (req, res) => {
