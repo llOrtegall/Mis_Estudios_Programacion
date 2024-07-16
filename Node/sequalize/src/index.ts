@@ -1,10 +1,2 @@
-import { connection } from './connections/database'
+import { test_70 } from './connections/test_70'
 
-async function test (){
-  try {
-    await connection.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-} 
