@@ -1,4 +1,4 @@
-import {  } from '../connections'
+import { power_bi } from '../connections/powerbi_216'
 import { Model, DataTypes, Optional } from 'sequelize'
 
 interface SucursalesAttributes {
@@ -37,7 +37,7 @@ Sucursales.init({
 }, {
   tableName: 'SUCURSALES',
   timestamps: false,
-  sequelize: metas_92
+  sequelize: power_bi
 })
 
 export { Sucursales }
