@@ -197,4 +197,6 @@ MetasProductos.init({
   sequelize: metas_92
 })
 
+MetasProductos.belongsTo(Sucursales, { foreignKey: 'CODIGO' })
+
 export { MetasProductos }

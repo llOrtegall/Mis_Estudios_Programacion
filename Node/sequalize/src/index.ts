@@ -23,7 +23,7 @@ async function getAllProductos() {
   try {
     const results = await MetasProductos.findOne({
       attributes: ['SUCURSAL', 'CHANCE', 'PAGAMAS', 'PAGATODO', 'GANE5', 'DOBLECHANCE'],
-      where: { FECHA: fn('CURDATE'), ZONA: 39627, SUCURSAL: 39816 }
+      where: { FECHA: fn('CURDATE'), ZONA: 39627, SUCURSAL: 39816 },
     })
 
     return results
@@ -32,10 +32,10 @@ async function getAllProductos() {
   }
 }
 
-// getAllSucursales()
-//   .then(res => {
-//     console.log(res)
-//   })
+getAllSucursales()
+  .then(res => {
+    console.log(res)
+  })
 
 getAllProductos()
   .then(res => {
