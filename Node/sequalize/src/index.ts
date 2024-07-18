@@ -1,18 +1,12 @@
-import { User } from "./model/User.model";
+import { Sucursales } from './models/sucursales.model'
 
-const test = async () => {
+async function getAllSucursales() {
   try {
-    await User.sync()
-    const user = await User.create({
-      document: 123456789,
-      name: 'John Doe',
-      email: 'exaple@gmail.com',
-      password: '412415415'
-    })
-    console.log(user.toJSON())
+    const sucursales = await Sucursales.findAll()
+    console.log(sucursales)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
-test()
+getAllSucursales()
