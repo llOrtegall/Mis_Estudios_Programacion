@@ -195,3 +195,5 @@ MetasProductos.init({
   timestamps: false,
   sequelize: metas_92
 })
+
+export { MetasProductos }
