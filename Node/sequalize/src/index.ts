@@ -1,3 +1,4 @@
+/*
 import { MetasProductos } from './models/metasproductos.model'
 import { Sucursales } from './models/sucursales.model'
 import { InfoVenta } from './models/infoVenta.model'
@@ -50,7 +51,7 @@ getAllSucursales()
           console.log(res);
 
           // TODO: codigo para crear la infoVenta
-          /*
+        
           if(res){
             res.map(product => {
               createInfoVenta({
@@ -63,7 +64,7 @@ getAllSucursales()
               })
             })
           }
-          */
+        
         })
         .catch(err => {
           console.error(err)
@@ -75,7 +76,6 @@ getAllSucursales()
     console.error(err);
   })
   
-/*
 
 getAllProductos({ sucursal: [39816] })
   .then(res => {
@@ -83,4 +83,18 @@ getAllProductos({ sucursal: [39816] })
   })
 */
 
+import express, { Request, Response } from 'express'
+import 'dotenv/config'
+
+const PORT = process.env.PORT || 3000
+
+const app = express()
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!')
+})
+
+app.listen(PORT, () => {
+  console.log(`Server running on port http://localhost:${PORT}`)
+})
 
