@@ -6,27 +6,22 @@ async function getAllSucursales() {
   try {
     const sucursales = await Sucursales.findAll({
       attributes: ['CODIGO', 'NOMBRE'],
-      where: { ZONA: 39627 }
+      where: { ZONA: 39627, CODIGO: [39816, 39825, 39885] }
     })
 
-    const sucursalesArray = sucursales.map(sucursal => {
-      return sucursal.dataValues.CODIGO
-    })
-
-    return sucursalesArray
+    return sucursales?.map(sucursal => sucursal.dataValues)
   } catch (error) {
     console.error(error)
   }
 }
 
-async function getAllProductos() {
+async function getAllProductos({ sucursal }: { sucursal: number[] | string[] }) {
   try {
-    const results = await MetasProductos.findOne({
+    const results = await MetasProductos.findAll({
       attributes: ['SUCURSAL', 'CHANCE', 'PAGAMAS', 'PAGATODO', 'GANE5', 'DOBLECHANCE'],
-      where: { FECHA: fn('CURDATE'), ZONA: 39627, SUCURSAL: 39816 },
+      where: { FECHA: fn('CURDATE'), ZONA: 39627, SUCURSAL: sucursal },
     })
-
-    return results
+    return results?.map(producto => producto.dataValues)
   } catch (error) {
     console.error(error)
   }
@@ -34,11 +29,26 @@ async function getAllProductos() {
 
 getAllSucursales()
   .then(res => {
-    console.log(res)
+    const codigos = res?.map(sucursal => sucursal.CODIGO)
+
+    if (codigos) {
+      getAllProductos({ sucursal: codigos })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.error(err)
+        })
+      }
+
+  })
+  .catch(err => {
+    console.error(err);
   })
 
-getAllProductos()
-  .then(res => {
-    console.log(res)
-  })
+
+// getAllProductos({ sucursal: [39816] })
+//   .then(res => {
+//     console.log(res)
+//   })
 

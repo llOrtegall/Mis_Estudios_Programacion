@@ -1,6 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import { metas_92 } from '../connections/metas_92'
-import { Sucursales } from './sucursales.model'
 
 interface MetasProductosAttributes {
   FECHA: Date
@@ -196,7 +195,5 @@ MetasProductos.init({
   timestamps: false,
   sequelize: metas_92
 })
-
-MetasProductos.belongsTo(Sucursales, { foreignKey: 'CODIGO' })
 
 export { MetasProductos }
