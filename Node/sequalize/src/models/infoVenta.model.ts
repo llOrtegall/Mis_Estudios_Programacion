@@ -11,7 +11,7 @@ interface InfoVentaAttributes {
   DOBLECHANCE: number
 }
 
-type InfoVentaCreationAttributes = Optional<InfoVentaAttributes, 'SUCURSAL'>
+type InfoVentaCreationAttributes = Optional<InfoVentaAttributes, 'FECHA'>
 
 class InfoVenta extends Model<InfoVentaAttributes, InfoVentaCreationAttributes> {
   declare FECHA: Date
@@ -24,13 +24,13 @@ class InfoVenta extends Model<InfoVentaAttributes, InfoVentaCreationAttributes> 
 }
 
 InfoVenta.init({
-  FECHA: { type: DataTypes.DATEONLY, allowNull: false },
+  FECHA: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
   SUCURSAL: { type: DataTypes.INTEGER, allowNull: false },
-  CHANCE: { type: DataTypes.INTEGER, allowNull: false },
-  PAGAMAS: { type: DataTypes.INTEGER, allowNull: false },
-  PAGATODO: { type: DataTypes.INTEGER, allowNull: false },
-  GANE5: { type: DataTypes.INTEGER, allowNull: false },
-  DOBLECHANCE: { type: DataTypes.INTEGER, allowNull: false }
+  CHANCE: { type: DataTypes.INTEGER, defaultValue: 0 },
+  PAGAMAS: { type: DataTypes.INTEGER, defaultValue: 0 },
+  PAGATODO: { type: DataTypes.INTEGER, defaultValue: 0 },
+  GANE5: { type: DataTypes.INTEGER, defaultValue: 0 },
+  DOBLECHANCE: { type: DataTypes.INTEGER, defaultValue: 0 }
 }, {
   sequelize: test_v1,
 })

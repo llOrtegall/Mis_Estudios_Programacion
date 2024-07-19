@@ -13,7 +13,8 @@ const test_v1 = new Sequelize({
   password: PASSWORD,
   host: HOST,
   port: parseInt(PORT),
-  dialect: 'mysql'
+  dialect: 'mysql',
+  timezone: '-05:00'
 });
 
 export { test_v1 }

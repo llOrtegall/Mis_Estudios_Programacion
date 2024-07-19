@@ -1,12 +1,13 @@
 import { MetasProductos } from './models/metasproductos.model'
 import { Sucursales } from './models/sucursales.model'
+import { InfoVenta } from './models/infoVenta.model'
 import { fn } from 'sequelize'
 
 async function getAllSucursales() {
   try {
     const sucursales = await Sucursales.findAll({
       attributes: ['CODIGO', 'NOMBRE'],
-      where: { ZONA: 39627, CODIGO: [39816, 39825, 39885] }
+      where: { ZONA: 39627 }
     })
 
     return sucursales?.map(sucursal => sucursal.dataValues)
@@ -27,6 +28,16 @@ async function getAllProductos({ sucursal }: { sucursal: number[] | string[] }) 
   }
 }
 
+async function createInfoVenta({ SUCURSAL, CHANCE, PAGAMAS, PAGATODO, GANE5, DOBLECHANCE }:
+  { SUCURSAL: number, CHANCE: number, PAGAMAS: number, PAGATODO: number, GANE5: number, DOBLECHANCE: number }) {
+  try {
+    await InfoVenta.sync()
+    await InfoVenta.create({ SUCURSAL, CHANCE, PAGAMAS, PAGATODO, GANE5, DOBLECHANCE })
+  } catch (error) {
+    throw error
+  }
+}
+
 getAllSucursales()
   .then(res => {
     const codigos = res?.map(sucursal => sucursal.CODIGO)
@@ -34,7 +45,19 @@ getAllSucursales()
     if (codigos) {
       getAllProductos({ sucursal: codigos })
         .then(res => {
-          console.log(res)
+          console.log(res);
+          if(res){
+            res.map(product => {
+              createInfoVenta({
+                SUCURSAL: product.SUCURSAL,
+                CHANCE: product.CHANCE,
+                PAGAMAS: product.PAGAMAS,
+                PAGATODO: product.PAGATODO,
+                GANE5: product.GANE5,
+                DOBLECHANCE: product.DOBLECHANCE
+              })
+            })
+          }
         })
         .catch(err => {
           console.error(err)
@@ -45,10 +68,13 @@ getAllSucursales()
   .catch(err => {
     console.error(err);
   })
+  
+/*
 
+getAllProductos({ sucursal: [39816] })
+  .then(res => {
+    console.log(res)
+  })
+*/
 
-// getAllProductos({ sucursal: [39816] })
-//   .then(res => {
-//     console.log(res)
-//   })
 
