@@ -1,7 +1,8 @@
-/*
 import { MetasProductos } from './models/metasproductos.model'
 import { Sucursales } from './models/sucursales.model'
 import { InfoVenta } from './models/infoVenta.model'
+import { PuntosMultired } from './contantes'
+import { CronJob } from 'cron'
 import { fn } from 'sequelize'
 
 async function getAllSucursales() {
@@ -23,7 +24,7 @@ async function getAllProductos({ sucursal }: { sucursal: number[] | string[] }) 
       attributes: ['SUCURSAL', 'CHANCE', 'PAGAMAS', 'PAGATODO', 'GANE5', 'DOBLECHANCE'],
       where: { FECHA: fn('CURDATE'), ZONA: 39627, SUCURSAL: sucursal },
     })
-    return results?.map(producto => producto.dataValues)
+    return results.map(product => product.dataValues)
   } catch (error) {
     console.error(error)
   }
@@ -39,62 +40,50 @@ async function createInfoVenta({ SUCURSAL, CHANCE, PAGAMAS, PAGATODO, GANE5, DOB
   }
 }
 
-getAllSucursales()
-  .then(res => {
-    const codigos = res?.map(sucursal => sucursal.CODIGO)
+async function TareaSQL() {
+  try {
+    const results = await getAllProductos({ sucursal: PuntosMultired })
 
-    console.log(codigos)
+    if (!results) throw new Error('No se encontraron resultados')
 
-    if (codigos) {
-      getAllProductos({ sucursal: [41241, 14124, 51515, 51231] })
-        .then(res => {
-          console.log(res);
+    const puntosnoencontrados = PuntosMultired.filter(punto => !results.some(result => result.SUCURSAL === punto))
 
-          // TODO: codigo para crear la infoVenta
-        
-          if(res){
-            res.map(product => {
-              createInfoVenta({
-                SUCURSAL: product.SUCURSAL,
-                CHANCE: product.CHANCE,
-                PAGAMAS: product.PAGAMAS,
-                PAGATODO: product.PAGATODO,
-                GANE5: product.GANE5,
-                DOBLECHANCE: product.DOBLECHANCE
-              })
-            })
-          }
-        
-        })
-        .catch(err => {
-          console.error(err)
-        })
-      }
+    results.map(product => {
+      createInfoVenta({
+        CHANCE: product.CHANCE,
+        DOBLECHANCE: product.DOBLECHANCE,
+        GANE5: product.GANE5,
+        PAGAMAS: product.PAGAMAS,
+        PAGATODO: product.PAGATODO,
+        SUCURSAL: product.SUCURSAL
+      })
+    })
 
-  })
-  .catch(err => {
-    console.error(err);
-  })
-  
+    puntosnoencontrados.map(punto => {
+      createInfoVenta({
+        CHANCE: 0,
+        DOBLECHANCE: 0,
+        GANE5: 0,
+        PAGAMAS: 0,
+        PAGATODO: 0,
+        SUCURSAL: punto
+      })
+    })
 
-getAllProductos({ sucursal: [39816] })
-  .then(res => {
-    console.log(res)
-  })
-*/
+    console.log('Tarea ejecutada correctamente');
 
-import express, { Request, Response } from 'express'
-import 'dotenv/config'
+  } catch (error) {
+    console.error(error)
+  }
+}
 
-const PORT = process.env.PORT || 3000
+const job = new CronJob(
+	'*/10 * * * *', // cronTime  
+  TareaSQL,
+	null, // onComplete
+	true, // start
+	'America/Bogota' // timeZone
+);
 
-const app = express()
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
-})
-
-app.listen(PORT, () => {
-  console.log(`Server running on port http://localhost:${PORT}`)
-})
+job.start()
 
