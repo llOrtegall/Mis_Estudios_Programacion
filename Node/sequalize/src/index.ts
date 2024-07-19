@@ -42,10 +42,15 @@ getAllSucursales()
   .then(res => {
     const codigos = res?.map(sucursal => sucursal.CODIGO)
 
+    console.log(codigos)
+
     if (codigos) {
-      getAllProductos({ sucursal: codigos })
+      getAllProductos({ sucursal: [41241, 14124, 51515, 51231] })
         .then(res => {
           console.log(res);
+
+          // TODO: codigo para crear la infoVenta
+          /*
           if(res){
             res.map(product => {
               createInfoVenta({
@@ -58,6 +63,7 @@ getAllSucursales()
               })
             })
           }
+          */
         })
         .catch(err => {
           console.error(err)
