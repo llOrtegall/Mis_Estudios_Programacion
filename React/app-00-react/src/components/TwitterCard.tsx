@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface PropsCard {
 	name: string;
 	username: string;
@@ -5,6 +7,14 @@ interface PropsCard {
 }
 
 export function TwitterCard({ name, username, avatar }: PropsCard) {
+	const [isFollowing, setIsFollowing] = useState(false);
+
+	const text = isFollowing ? 'Siguiendo' : 'Seguir';
+
+	const handleFollow = () => {
+		setIsFollowing(!isFollowing);
+	};
+
 	return (
 		<article className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
 			<header className="flex items-center gap-3 flex-1">
@@ -20,8 +30,11 @@ export function TwitterCard({ name, username, avatar }: PropsCard) {
 			</header>
 
 			<aside className="self-auto">
-				<button className="px-4 py-1.5 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 dark:focus:ring-offset-slate-900 cursor-pointer">
-					Seguir
+				<button
+					className="px-4 py-1.5 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 dark:focus:ring-offset-slate-900 cursor-pointer"
+					onClick={handleFollow}
+				>
+					{text}
 				</button>
 			</aside>
 		</article>
