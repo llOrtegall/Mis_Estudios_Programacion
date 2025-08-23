@@ -35,12 +35,12 @@ function useSearch(){
 }
 
 function App() {
-  const { movies } = useMovies();
   const { error, search, setSearch } = useSearch();
+  const { movies, getMovies } = useMovies({ search: search });
 
   const handleSubmit = (ev: FormEvent) => {
     ev.preventDefault();
-    console.log(search);
+    getMovies();
   }
 
   const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
