@@ -1,0 +1,22 @@
+import type { Movie, MovieResponse } from "../types/moviesApiTypes"
+const API_KEY = import.meta.env.VITE_API_KEY
+
+export type MappMovies = Awaited<ReturnType<typeof searchMovies>>
+
+export async function searchMovies(search: string) {
+  try {
+    const response = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`)
+    const data: MovieResponse = await response.json()
+
+    return data.Search?.map((m: Movie) => ({
+      id: m.imdbID,
+      title: m.Title,
+      year: m.Year,
+      image: m.Poster
+    }))
+    
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error al buscar películas")
+  }
+}
