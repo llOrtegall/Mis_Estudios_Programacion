@@ -1,13 +1,6 @@
-interface Props {
-  movies: {
-    id: string;
-    title: string;
-    year: string;
-    image: string;
-  }[]
-}
+import { type MappMovies } from '../services/movies'
 
-export function Movies({ movies }: Props) {
+export function Movies({ movies }: { movies: MappMovies }) {
   return (
     <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {movies.map((movie) => (
