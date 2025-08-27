@@ -1,12 +1,28 @@
 import { type MappMovies } from '../services/movies'
+import { MovieDetails } from './MovieDetails'
+import { useState } from 'react'
 
 export function Movies({ movies }: { movies: MappMovies }) {
+  const [showModal, setShowModal] = useState(false)
+  const [id, setId] = useState('')
+  
+  const handleClickMovie = (id: string) => {
+    setId(id)
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setId('')
+    setShowModal(false)
+  }
+
   return (
+    <>
     <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-4">
       {movies.map((movie) => (
         <li 
-          key={movie.id}
-          className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-gray-200 cursor-pointer"
+        key={movie.id}
+        className="group bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-gray-200"
         >
           {/* Image Container */}
           <div className="relative overflow-hidden">
@@ -15,7 +31,7 @@ export function Movies({ movies }: { movies: MappMovies }) {
               alt={movie.title}
               className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-300"
               loading="lazy"
-            />
+              />
             
             {/* Year badge */}
             <div className="absolute top-3 right-3">
@@ -41,7 +57,9 @@ export function Movies({ movies }: { movies: MappMovies }) {
               </div>
               
               {/* View button */}
-              <button className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm font-medium">
+              <button 
+              onClick={() => handleClickMovie(movie.id)} 
+              className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm font-medium cursor-pointer">
                 View
               </button>
             </div>
@@ -49,5 +67,10 @@ export function Movies({ movies }: { movies: MappMovies }) {
         </li>
       ))}
     </ul>
+    
+    {showModal && (
+      <MovieDetails onClose={handleCloseModal} id={id}/>
+    )}
+    </>
   )
 }
