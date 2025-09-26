@@ -61,3 +61,15 @@ const avangers = [
 const groupedAvangers = Object.groupBy(avangers, avanger => avanger.age)
 
 console.log(groupedAvangers)
+
+const web = new Set(['JavaScript', 'Python', 'Java', 'C++', 'C#', 'C', 'Ruby', 'Go', 'Rust', 'TypeScript'])
+
+web.add('C#')
+
+web.delete('Python')
+
+console.log(web.size)
+
+console.log(web.values());
+
+console.log(web.has('JavaScript'))
