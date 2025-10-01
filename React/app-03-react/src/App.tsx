@@ -1,20 +1,14 @@
-import { useState, useCallback, type ChangeEvent, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useSearch } from "./hooks/useSearch";
 import { useMovies } from "./hooks/useMovies";
 import { Movies } from "./components/Movies";
-import debounce from "just-debounce-it";
-
 
 function App() {
   const [sort, setSort] = useState(false);
   const { error, search, setSearch } = useSearch();
-  const { movies, getMovies } = useMovies({ search: search, sort });
+  const { movies, getMovies } = useMovies({ search, sort });
 
-  const debouncedGetMovies = useCallback(
-    debounce((search: string) => getMovies(search), 800), 
-  []);
-
-  const handleSubmit = (ev: FormEvent) => {
+ const handleSubmit = (ev: FormEvent) => {
     ev.preventDefault();
     getMovies(search);
   }
@@ -22,7 +16,6 @@ function App() {
   const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
     const newSearch = ev.target.value
     setSearch(newSearch);
-    debouncedGetMovies(newSearch)
   }
 
   const handleSortChange = () => {
@@ -32,7 +25,6 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <div className="container mx-auto px-4 py-8">
-        {/* Header Section */}
         <header className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
             Movie Search
@@ -70,7 +62,7 @@ function App() {
 
             <button
               type="submit"
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent"
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent cursor-pointer"
             >
               <span className="flex items-center gap-2">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,7 +73,6 @@ function App() {
             </button>
           </form>
 
-          {/* Error Message */}
           {error && (
             <div className="mt-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg backdrop-blur-sm">
               <p className="text-red-300 text-sm font-medium">{error}</p>
@@ -89,7 +80,6 @@ function App() {
           )}
         </header>
 
-        {/* Main Content */}
         <main className="space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-white mb-2">Search Results</h2>

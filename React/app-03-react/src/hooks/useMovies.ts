@@ -1,35 +1,65 @@
 import { searchMovies, type MappMovies } from "../services/movies"
-import { useRef, useState, useMemo, useCallback } from "react"
+import { useRef, useState, useMemo, useCallback, useEffect } from "react"
+import debounce from "just-debounce-it"
 
-export function useMovies({ search, sort }: { search: string, sort: boolean }) {
+interface UseMoviesParams {
+  search: string
+  sort: boolean
+  debounceMs?: number
+}
+
+export function useMovies({ search, sort, debounceMs = 800 }: UseMoviesParams) {
   const [resMovies, setResMovies] = useState<MappMovies>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const previusSearh = useRef(search)
+  const previousSearch = useRef(search)
 
-  // useCallback para evitar re-renderizados innecesarios y es especifico para funciones
-  const getMovies = useCallback(async (search: string) => {
-    if (search === previusSearh.current) return
+  // Función interna para buscar películas
+  const searchMoviesInternal = useCallback(async (searchTerm: string) => {
+    if (searchTerm === previousSearch.current) return
+    if (!searchTerm.trim()) {
+      setResMovies([])
+      return
+    }
 
     try {
       setLoading(true)
-      previusSearh.current = search
-      const movies = await searchMovies(search)
+      setError(null)
+      previousSearch.current = searchTerm
+      const movies = await searchMovies(searchTerm)
       setResMovies(movies)
     } catch (error) {
       setError(error as string)
+      setResMovies([])
     } finally {
       setLoading(false)
     }
-
   }, [])
 
-  // useMemo para evitar re-renderizados innecesarios cuando el valor de sort no cambia o las movies no cambian
+  const debouncedSearch = useMemo(() =>
+    debounce((searchTerm: string) =>
+      searchMoviesInternal(searchTerm), debounceMs),
+    [searchMoviesInternal, debounceMs]
+  )
+
+  const getMovies = useCallback((searchTerm: string) => {
+    searchMoviesInternal(searchTerm)
+  }, [searchMoviesInternal])
+
+  useEffect(() => {
+    debouncedSearch(search)
+  }, [search, debouncedSearch])
+
   const sortedMovies = useMemo(() => {
     return sort
       ? [...resMovies].sort((a, b) => a.title.localeCompare(b.title))
       : resMovies
   }, [sort, resMovies])
 
-  return { movies: sortedMovies, getMovies, loading, error }
+  return {
+    movies: sortedMovies,
+    getMovies,
+    loading,
+    error
+  }
 }
